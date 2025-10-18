@@ -1050,6 +1050,7 @@
         
         // Theme toggle functionality
         function toggleTheme() {
+            console.log("Hola Mundo");
             const body = document.body;
             const themeToggle = document.querySelector('.theme-toggle');
             const currentTheme = body.getAttribute('data-theme');
@@ -1064,6 +1065,8 @@
                 localStorage.setItem('theme', 'dark');
             }
         }
+
+        
         
         // Scroll progress indicator
         function updateScrollProgress() {
@@ -1204,14 +1207,14 @@
 
     <header>
         <div class="header-content">
-            <a href="saberesAncestralesV2.html" class="logo">Saberes Ancestrales</a>
+            <a href="#inicio" class="logo" onclick="showSection('inicio')">Saberes Ancestrales</a>
             <nav>
                 <ul>
-                    <li><a href="index.html" class="nav-link">Inicio</a></li>
-                    <li><a href="museo.html" class="nav-link">Plantas</a></li>
+                    <li><a href="#inicio" onclick="showSection('inicio')" class="nav-link active">Inicio</a></li>
+                    <li><a href="museo.html"  class="nav-link">Plantas</a></li>
                     <li><a href="historiasOrales.html" class="nav-link">Historias</a></li>
-                    <li><a href="#experiencias" onclick="showSection('experiencias')" class="nav-link active">Experiencias Estudiantiles</a></li>
-                     <li><a href="juegos.html" class="nav-link">Juegos</a></li>
+                    <li><a href="experiencias.html" class="nav-link">Experiencias Estudiantiles</a></li>
+                    <li><a href="juegos.html" class="nav-link">Juegos</a></li>
                     <li><button class="theme-toggle" onclick="toggleTheme()">🌙</button></li>
                 </ul>
             </nav>
@@ -1219,96 +1222,47 @@
     </header>
 
     <main>
-        <!-- Experiencias Estudiantiles -->
-        <section id="experiencias" class="section active">
+        <!-- Landing Page -->
+        <section id="inicio" class="section active">
             
-                
-                <div class="hero fade-in-on-scroll">
-                    <h1>Experiencias Estudiantiles</h1>
-                    <p>Descubre cómo los estudiantes están aprendiendo y aplicando los saberes ancestrales sobre plantas medicinales en contextos educativos modernos.</p>
-                </div>
-                <div class="container">
-                <div class="experience-grid">
-                    <div class="experience-card fade-in-on-scroll">
-                        <div class="experience-image">📚</div>
-                        <div class="experience-content">
-                            <h4>Taller de Identificación Botánica</h4>
-                            <p>Estudiantes de 8° grado aprendieron a identificar plantas medicinales comunes en el Caribe colombiano, comparando nombres científicos con nombres tradicionales.</p>
-                            <p><strong>Institución:</strong> IE San José, Cartagena</p>
-                            <p><strong>Participantes:</strong> 25 estudiantes</p>
-                            <p><strong>Fecha:</strong> Marzo 2024</p>
-                        </div>
-                    </div>
-                    
-                    <div class="experience-card fade-in-on-scroll">
-                        <div class="experience-image">🌱</div>
-                        <div class="experience-content">
-                            <h4>Huerto Medicinal Escolar</h4>
-                            <p>Creación de un huerto medicinal en la institución donde los estudiantes cultivan y cuidan plantas medicinales tradicionales, aprendiendo sobre su cuidado y usos.</p>
-                            <p><strong>Institución:</strong> Colegio La Esperanza, Barranquilla</p>
-                            <p><strong>Participantes:</strong> 40 estudiantes</p>
-                            <p><strong>Fecha:</strong> Febrero 2024</p>
-                        </div>
-                    </div>
-                    
-                    <div class="experience-card fade-in-on-scroll">
-                        <div class="experience-image">👥</div>
-                        <div class="experience-content">
-                            <h4>Encuentro Intergeneracional</h4>
-                            <p>Estudiantes de bachillerato entrevistaron a sabedores tradicionales de su comunidad, documentando recetas y historias familiares sobre plantas medicinales.</p>
-                            <p><strong>Institución:</strong> IE Rural de Minca, Santa Marta</p>
-                            <p><strong>Participantes:</strong> 30 estudiantes</p>
-                            <p><strong>Fecha:</strong> Enero 2024</p>
-                        </div>
-                    </div>
-                    
-                    <div class="experience-card fade-in-on-scroll">
-                        <div class="experience-image">🎨</div>
-                        <div class="experience-content">
-                            <h4>Festival Cultural de Plantas</h4>
-                            <p>Los estudiantes organizaron un festival donde presentaron obras de teatro, danzas y exposiciones sobre el uso tradicional de plantas medicinales en sus comunidades.</p>
-                            <p><strong>Institución:</strong> IE Técnica de Turbaco</p>
-                            <p><strong>Participantes:</strong> 120 estudiantes</p>
-                            <p><strong>Fecha:</strong> Abril 2024</p>
-                        </div>
-                    </div>
-                    
-                    <div class="experience-card fade-in-on-scroll">
-                        <div class="experience-image">🔬</div>
-                        <div class="experience-content">
-                            <h4>Laboratorio de Preparaciones</h4>
-                            <p>Taller práctico donde los estudiantes aprendieron a preparar infusiones, ungüentos y jarabes tradicionales bajo supervisión de sabedores locales.</p>
-                            <p><strong>Institución:</strong> IE Nuestra Señora del Carmen, Magangué</p>
-                            <p><strong>Participantes:</strong> 35 estudiantes</p>
-                            <p><strong>Fecha:</strong> Mayo 2024</p>
-                        </div>
-                    </div>
-                    
-                    <div class="experience-card fade-in-on-scroll">
-                        <div class="experience-image">📖</div>
-                        <div class="experience-content">
-                            <h4>Cartilla Digital Comunitaria</h4>
-                            <p>Estudiantes de grado 11° crearon una cartilla digital ilustrada con plantas medicinales de su región, incluyendo fotografías, usos y testimonios de abuelos.</p>
-                            <p><strong>Institución:</strong> IE Águeda Gallardo de Villamizar, Valledupar</p>
-                            <p><strong>Participantes:</strong> 20 estudiantes</p>
-                            <p><strong>Fecha:</strong> Junio 2024</p>
-                        </div>
-                    </div>
+            <div class="container">
+                <div class="fade-in-on-scroll">
+                    <h2>Juegos de saberes ancestrales</h2>
+                    <p>Juegos interactivos para que aumentes tus conocimientos sobre las plantas medicinales y sus usos</p>
                 </div>
                 
-                <div class="fade-in-on-scroll" style="background: var(--bg-primary); padding: 2rem; border-radius: var(--border-radius); margin: 2rem 0; box-shadow: var(--shadow-light);">
-                    <h3>Impacto Educativo</h3>
-                    <p>Estas experiencias han demostrado el poder transformador de conectar el conocimiento ancestral con la educación formal. Los estudiantes no solo aprenden sobre botánica y cultura, sino que desarrollan:</p>
+                <div class="cards-grid">
+                    <div class="card">
+                        <h3>🎮 Travesía del Sabedor</h3>
+                        <p>Colecciona plantas medicinales y vive la aventura</p>
+                        <a href="juego.html" class="card-link" onclick="showSection('museo')">Irme a la Travesía</a>
+                    </div>
+                    
+                    <div class="card">
+                        <h3>👥 Historias de Sabedores</h3>
+                        <p>Conoce las experiencias y testimonios de los sabedores ancestrales, guardianes del conocimiento tradicional sobre plantas medicinales.</p>
+                        <a href="#historias" class="card-link" onclick="showSection('historias')">Escuchar Historias</a>
+                    </div>
+                    
+                    <div class="card">
+                        <h3>🎓 Experiencias Estudiantiles</h3>
+                        <p>Descubre cómo los estudiantes están aprendiendo y aplicando estos conocimientos ancestrales en contextos educativos modernos.</p>
+                        <a href="#experiencias" class="card-link" onclick="showSection('experiencias')">Ver Experiencias</a>
+                    </div>
+                </div>
+
+                <div class="fade-in-on-scroll" style="background: var(--bg-primary); padding: 2rem; border-radius: var(--border-radius); margin: 3rem 0; box-shadow: var(--shadow-light);">
+                    <h3>Importancia Cultural</h3>
+                    <p>El Caribe colombiano es hogar de una rica diversidad cultural y biológica. Las comunidades afrodescendientes, indígenas y mestizas han desarrollado a lo largo de siglos un profundo conocimiento sobre las propiedades medicinales de la flora local. Este saber, transmitido de generación en generación a través de la tradición oral, representa un patrimonio invaluable que debemos preservar y valorar.</p>
+                    
+                    <h4 style="color: var(--primary-green); margin-top: 2rem;">Objetivos del Proyecto:</h4>
                     <ul style="margin: 1rem 0; padding-left: 2rem; color: var(--text-secondary);">
-                        <li>Respeto por la sabiduría tradicional y los mayores de la comunidad</li>
-                        <li>Conciencia sobre la importancia de la biodiversidad local</li>
-                        <li>Habilidades de investigación y documentación cultural</li>
-                        <li>Capacidad de diálogo intergeneracional</li>
-                        <li>Sentido de pertenencia e identidad cultural</li>
+                        <li>Documentar el conocimiento tradicional sobre plantas medicinales</li>
+                        <li>Crear un archivo digital accesible para futuras generaciones</li>
+                        <li>Promover el diálogo intercultural e intergeneracional</li>
+                        <li>Fomentar la investigación etnobotánica responsable</li>
+                        <li>Apoyar la conservación de la biodiversidad local</li>
                     </ul>
-                    
-                    <h4 style="color: var(--primary-green); margin-top: 2rem;">Próximas Actividades</h4>
-                    <p style="color: var(--text-secondary); margin-top: 1rem;">Estamos planificando nuevas experiencias educativas para el segundo semestre de 2024, incluyendo intercambios entre instituciones, creación de un documental estudiantil y la primera Feria Regional de Saberes Ancestrales.</p>
                 </div>
             </div>
         </section>

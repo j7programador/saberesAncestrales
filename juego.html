@@ -1,0 +1,602 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>La Travesía del Sabedor</title>
+    <style>
+        :root {
+            --primary-green: #27ae60;
+            --secondary-green: #2ecc71;
+            --accent-red: #e74c3c;
+            --dark-blue: #2c3e50;
+            --light-blue: #3498db;
+        }
+        
+        @import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap');
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: Arial, sans-serif;
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow: hidden;
+        }
+        .game-container {
+            max-width: 900px;
+            width: 90%;
+            padding: 20px;
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+            text-align: center;
+            position: relative;
+        }
+        h1 {
+            font-family: 'Press Start 2P', monospace;
+            color: var(--primary-green);
+            font-size: 1.5rem;
+            margin-bottom: 15px;
+            text-shadow: 3px 3px 0px rgba(0,0,0,0.1);
+        }
+        #game-canvas {
+            border: 4px solid var(--dark-blue);
+            image-rendering: pixelated;
+            max-width: 100%;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+        }
+        .hud {
+            display: flex;
+            justify-content: space-around;
+            margin: 15px 0;
+            font-family: 'Press Start 2P', monospace;
+            font-size: 0.7rem;
+            gap: 10px;
+        }
+        .hud span {
+            padding: 8px 12px;
+            background: linear-gradient(135deg, #f5f7fa, #e0e5eb);
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        button {
+            background: linear-gradient(135deg, var(--primary-green), var(--secondary-green));
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            margin: 10px 5px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-family: 'Press Start 2P', monospace;
+            font-size: 0.7rem;
+            box-shadow: 0 4px 10px rgba(39, 174, 96, 0.3);
+            transition: all 0.2s;
+        }
+        button:hover { 
+            transform: translateY(-2px);
+            box-shadow: 0 6px 15px rgba(39, 174, 96, 0.4);
+        }
+        .modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.8);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 100;
+            animation: fadeIn 0.3s ease;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        .modal-content {
+            background: white;
+            padding: 30px;
+            border-radius: 15px;
+            max-width: 500px;
+            width: 90%;
+            font-family: 'Press Start 2P', monospace;
+            animation: slideUp 0.3s ease;
+            box-shadow: 0 0 30px rgba(0,0,0,0.5);
+        }
+        @keyframes slideUp {
+            from { transform: translateY(50px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+        #info {
+            background: linear-gradient(135deg, var(--dark-blue), #1a252f);
+            color: white;
+            padding: 12px;
+            border-radius: 8px;
+            margin-top: 10px;
+            font-family: 'Press Start 2P', monospace;
+            font-size: 0.6rem;
+            min-height: 60px;
+            line-height: 1.5;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+        }
+
+        .plant-notification {
+            position: fixed;
+            top: 20px;
+            right: -400px;
+            width: 350px;
+            background: linear-gradient(135deg, #ffffff, #f8f9fa);
+            border: 4px solid var(--primary-green);
+            border-radius: 15px;
+            padding: 20px;
+            z-index: 150;
+            box-shadow: 0 10px 40px rgba(39, 174, 96, 0.6);
+            transition: right 0.5s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+        }
+
+        .plant-notification.show {
+            right: 20px;
+        }
+
+        .notification-header {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin-bottom: 15px;
+        }
+
+        .notification-icon {
+            font-size: 3rem;
+            animation: bounce 0.8s infinite;
+        }
+
+        @keyframes bounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+
+        .notification-title {
+            font-family: 'Press Start 2P', monospace;
+            font-size: 0.9rem;
+            color: var(--primary-green);
+            animation: glow 1.5s ease-in-out infinite;
+        }
+
+        @keyframes glow {
+            0%, 100% { text-shadow: 0 0 10px rgba(39, 174, 96, 0.5); }
+            50% { text-shadow: 0 0 20px rgba(39, 174, 96, 1); }
+        }
+
+        .notification-details {
+            background: rgba(39, 174, 96, 0.1);
+            border-radius: 10px;
+            padding: 12px;
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            border: 2px dashed var(--primary-green);
+        }
+
+        .notification-details p {
+            margin: 6px 0;
+            font-size: 0.85rem;
+            color: var(--dark-blue);
+        }
+
+        .notification-details strong {
+            color: var(--primary-green);
+        }
+
+        .progress-mini {
+            background: #e0e0e0;
+            border-radius: 10px;
+            height: 15px;
+            margin-top: 12px;
+            overflow: hidden;
+        }
+
+        .progress-mini-fill {
+            height: 100%;
+            background: linear-gradient(90deg, var(--primary-green), var(--secondary-green));
+            transition: width 0.5s ease;
+            font-family: 'Press Start 2P', monospace;
+            font-size: 0.5rem;
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        @media (max-width: 650px) {
+            .plant-notification { width: 90%; right: -100%; }
+            .plant-notification.show { right: 5%; }
+        }
+    </style>
+</head>
+<body>
+<div class="game-container">
+    <h1>La Travesía del Sabedor</h1>
+    <div class="hud">
+        <span id="level">Nivel: 1/10</span>
+        <span id="score">Plantas: 0</span>
+        <span id="time">Tiempo: 60s</span>
+    </div>
+    
+    <canvas id="game-canvas" width="600" height="400"></canvas>
+    
+    <div id="info">Usa W/A/S/D o Flechas. SHIFT para correr más rápido.</div>
+</div>
+
+<div class="plant-notification" id="plant-notification">
+    <div class="notification-header">
+        <div class="notification-icon" id="notif-icon">🌿</div>
+        <div class="notification-title" id="notif-title">¡Planta!</div>
+    </div>
+    <div class="notification-details">
+        <p><strong>🌱</strong> <span id="notif-name">-</span></p>
+        <p><strong>💊</strong> <span id="notif-use">-</span></p>
+        <p><strong>📍</strong> <span id="notif-region">-</span></p>
+    </div>
+    <div class="progress-mini">
+        <div class="progress-mini-fill" id="notif-progress">0/0</div>
+    </div>
+</div>
+
+<div id="start-modal" class="modal">
+    <div class="modal-content">
+        <h2 style="font-size: 1.1rem; margin-bottom: 20px;">🌿 Bienvenido 🌿</h2>
+        <p style="font-size: 0.65rem; line-height: 1.6; font-family: Arial;">
+            Recolecta plantas medicinales en <strong>10 niveles</strong>.
+            <br><br>
+            <strong>Controles:</strong> W/A/S/D o Flechas<br>
+            <strong>Correr:</strong> SHIFT
+        </p>
+        <button id="start-btn">¡Comenzar!</button>
+        <a href="juegos.html"><button style="background: var(--light-blue);">Volver</button></a>
+    </div>
+</div>
+
+<div id="level-modal" class="modal" style="display:none;">
+    <div class="modal-content">
+        <h2 style="color: var(--primary-green);">¡Nivel Completado! 🎉</h2>
+        <p id="level-msg" style="font-size: 0.7rem; margin: 20px 0; font-family: Arial;"></p>
+        <button id="next-btn">Siguiente →</button>
+    </div>
+</div>
+
+<div id="game-over-modal" class="modal" style="display:none;">
+    <div class="modal-content">
+        <h2 id="game-over-title">¡Tiempo Agotado!</h2>
+        <p id="game-over-msg" style="font-size: 0.9rem; margin: 20px 0;"></p>
+        <button id="restart-btn">Reintentar</button>
+        <a href="juegos.html"><button style="background: var(--light-blue);">Menú</button></a>
+    </div>
+</div>
+
+<div id="victory-modal" class="modal" style="display:none;">
+    <div class="modal-content">
+        <h2 style="color: var(--primary-green);">🏆 ¡Victoria! 🏆</h2>
+        <p style="font-size: 0.75rem; margin: 20px 0; font-family: Arial;">
+            ¡Has completado los <strong>10 niveles</strong>!
+        </p>
+        <button id="play-again-btn">Jugar de Nuevo</button>
+        <a href="juegos.html"><button style="background: var(--light-blue);">Volver</button></a>
+    </div>
+</div>
+
+<script>
+const canvas = document.getElementById('game-canvas');
+const ctx = canvas.getContext('2d');
+const TILE = 20;
+
+const THEMES = [
+    { name: "Costa Atlántica", bg: '#e8f5f2', accent: '#27ae60', obs: '#c0392b' },
+    { name: "Sierra Nevada", bg: '#e3f2fd', accent: '#2196f3', obs: '#d32f2f' },
+    { name: "Selva Tropical", bg: '#f1f8e9', accent: '#689f38', obs: '#f57c00' },
+    { name: "La Guajira", bg: '#fff3e0', accent: '#ff9800', obs: '#5d4037' },
+    { name: "Amazonas", bg: '#e0f2f1', accent: '#009688', obs: '#d84315' },
+    { name: "Magdalena", bg: '#fce4ec', accent: '#e91e63', obs: '#311b92' },
+    { name: "Chocó", bg: '#f3e5f5', accent: '#9c27b0', obs: '#bf360c' },
+    { name: "Santander", bg: '#e8eaf6', accent: '#3f51b5', obs: '#e65100' },
+    { name: "Caribe", bg: '#fff9c4', accent: '#fbc02d', obs: '#c62828' },
+    { name: "Maestro", bg: '#ffebee', accent: '#e91e63', obs: '#1a237e' }
+];
+
+const LEVELS = [
+    { plants: 3, obstacles: 3, time: 50, speed: 150, sprint: 1.5, moving: 0 },
+    { plants: 4, obstacles: 4, time: 55, speed: 155, sprint: 1.6, moving: 1 },
+    { plants: 4, obstacles: 5, time: 50, speed: 160, sprint: 1.6, moving: 1 },
+    { plants: 5, obstacles: 5, time: 55, speed: 165, sprint: 1.7, moving: 2 },
+    { plants: 5, obstacles: 6, time: 50, speed: 170, sprint: 1.7, moving: 2 },
+    { plants: 6, obstacles: 6, time: 55, speed: 175, sprint: 1.8, moving: 3 },
+    { plants: 6, obstacles: 7, time: 50, speed: 180, sprint: 1.8, moving: 3 },
+    { plants: 7, obstacles: 7, time: 55, speed: 185, sprint: 1.9, moving: 4 },
+    { plants: 7, obstacles: 8, time: 50, speed: 190, sprint: 1.9, moving: 4 },
+    { plants: 8, obstacles: 10, time: 60, speed: 200, sprint: 2.0, moving: 5 }
+];
+
+const PLANTS = [
+    { name: "Hierbabuena", use: "Digestivo", region: "Costa Atlántica", emoji: "🌿" },
+    { name: "Toronjil", use: "Calma nervios", region: "Magdalena", emoji: "🍃" },
+    { name: "Sábila", use: "Cicatrización", region: "La Guajira", emoji: "🌵" },
+    { name: "Caléndula", use: "Antiinflamatorio", region: "Bolívar", emoji: "🌼" },
+    { name: "Orégano", use: "Tos y gripe", region: "Cesar", emoji: "🌿" },
+    { name: "Malva", use: "Inflamaciones", region: "Atlántico", emoji: "🌺" },
+    { name: "Ruda", use: "Dolores", region: "Cartagena", emoji: "🌱" },
+    { name: "Manzanilla", use: "Nervioso", region: "Santander", emoji: "🌼" },
+    { name: "Eucalipto", use: "Expectorante", region: "Boyacá", emoji: "🌿" },
+    { name: "Romero", use: "Circulatorio", region: "Cundinamarca", emoji: "🌿" }
+];
+
+let game = {
+    level: 0,
+    player: { x: 300, y: 200, size: TILE, speed: 150, dx: 0, dy: 0, sprint: false },
+    keys: {},
+    plants: [],
+    obstacles: [],
+    particles: [],
+    collected: 0,
+    start: 0,
+    elapsed: 0,
+    running: false,
+    invulnerable: false,
+    invTime: 0
+};
+
+let audioCtx, AUDIO = true, notifTimeout;
+
+function sound(f, d, t = 'square', v = 0.3) {
+    if (!audioCtx || !AUDIO) return;
+    try {
+        if (audioCtx.state === 'suspended') audioCtx.resume();
+        const o = audioCtx.createOscillator(), g = audioCtx.createGain();
+        o.type = t; o.frequency.value = f;
+        g.gain.value = v;
+        g.gain.exponentialRampToValueAtTime(0.0001, audioCtx.currentTime + d);
+        o.connect(g); g.connect(audioCtx.destination);
+        o.start(); o.stop(audioCtx.currentTime + d);
+    } catch(e) {}
+}
+
+function collision(a, b) {
+    return a.x < b.x + b.size && a.x + a.size > b.x && a.y < b.y + b.size && a.y + a.size > b.y;
+}
+
+function randPos(size) {
+    let pos;
+    do {
+        pos = {
+            x: Math.floor((40 + Math.random() * 520) / TILE) * TILE,
+            y: Math.floor((40 + Math.random() * 320) / TILE) * TILE,
+            size: size
+        };
+    } while (collision(pos, game.player));
+    return pos;
+}
+
+function particles(x, y, color) {
+    for (let i = 0; i < 20; i++) {
+        const a = (Math.PI * 2 * i) / 20;
+        game.particles.push({
+            x, y, vx: Math.cos(a) * 150, vy: Math.sin(a) * 150,
+            life: 1, color, size: 3 + Math.random() * 4
+        });
+    }
+}
+
+function showNotif(plant) {
+    const n = document.getElementById('plant-notification');
+    const c = LEVELS[game.level];
+    const p = (game.collected / c.plants) * 100;
+    
+    if (notifTimeout) clearTimeout(notifTimeout);
+    
+    document.getElementById('notif-icon').textContent = plant.emoji;
+    document.getElementById('notif-title').textContent = `¡${plant.name}!`;
+    document.getElementById('notif-name').textContent = plant.name;
+    document.getElementById('notif-use').textContent = plant.use;
+    document.getElementById('notif-region').textContent = plant.region;
+    document.getElementById('notif-progress').textContent = `${game.collected}/${c.plants}`;
+    document.getElementById('notif-progress').style.width = p + '%';
+    
+    n.classList.add('show');
+    notifTimeout = setTimeout(() => n.classList.remove('show'), 3000);
+}
+
+function initLevel() {
+    const c = LEVELS[game.level], t = THEMES[game.level];
+    game.plants = []; game.obstacles = []; game.particles = [];
+    game.collected = 0; game.player.x = 300; game.player.y = 200;
+    game.player.speed = c.speed; game.invulnerable = false;
+    
+    for (let i = 0; i < c.plants; i++)
+        game.plants.push({ ...randPos(TILE), collected: false, data: PLANTS[i % PLANTS.length], color: t.accent, pulse: Math.random() * 6.28 });
+    
+    for (let i = 0; i < c.obstacles - c.moving; i++)
+        game.obstacles.push({ ...randPos(TILE * 1.5), moving: false, color: t.obs });
+    
+    for (let i = 0; i < c.moving; i++)
+        game.obstacles.push({ ...randPos(TILE * 1.5), moving: true, vx: (Math.random() - 0.5) * 80, vy: (Math.random() - 0.5) * 80, color: t.obs });
+    
+    document.getElementById('level').textContent = `Nivel: ${game.level + 1}/10`;
+    document.getElementById('info').innerHTML = `<strong>${t.name}</strong> - ${c.plants} plantas`;
+}
+
+function updateHUD() {
+    const c = LEVELS[game.level];
+    document.getElementById('score').textContent = `Plantas: ${game.collected}/${c.plants}`;
+    document.getElementById('time').textContent = `⏱ ${Math.ceil(Math.max(0, c.time - game.elapsed))}s`;
+}
+
+let last = 0;
+function loop(now) {
+    if (!game.running) return;
+    const dt = Math.min((now - last) / 1000, 0.1);
+    last = now;
+    update(dt);
+    draw();
+    requestAnimationFrame(loop);
+}
+
+function update(dt) {
+    const c = LEVELS[game.level];
+    game.elapsed = (Date.now() - game.start) / 1000;
+    
+    if (game.elapsed >= c.time) { endGame(false); return; }
+    
+    if (game.invulnerable) {
+        game.invTime -= dt;
+        if (game.invTime <= 0) game.invulnerable = false;
+    }
+    
+    const spd = game.player.speed * dt, spr = game.player.sprint ? c.sprint : 1;
+    game.player.dx = 0; game.player.dy = 0;
+    
+    if (game.keys['arrowup'] || game.keys['w']) game.player.dy -= spd * spr;
+    if (game.keys['arrowdown'] || game.keys['s']) game.player.dy += spd * spr;
+    if (game.keys['arrowleft'] || game.keys['a']) game.player.dx -= spd * spr;
+    if (game.keys['arrowright'] || game.keys['d']) game.player.dx += spd * spr;
+    
+    game.player.x += game.player.dx; game.player.y += game.player.dy;
+    game.player.x = Math.max(0, Math.min(600 - game.player.size, game.player.x));
+    game.player.y = Math.max(0, Math.min(400 - game.player.size, game.player.y));
+    
+    game.plants.forEach(p => { if (!p.collected) p.pulse += dt * 3; });
+    
+    game.obstacles.forEach(o => {
+        if (o.moving) {
+            o.x += o.vx * dt; o.y += o.vy * dt;
+            if (o.x <= 0 || o.x >= 600 - o.size) o.vx *= -1;
+            if (o.y <= 0 || o.y >= 400 - o.size) o.vy *= -1;
+        }
+    });
+    
+    game.plants.forEach(p => {
+        if (!p.collected && collision(game.player, p)) {
+            p.collected = true; game.collected++;
+            sound(660, 0.1, 'sine', 0.4);
+            particles(p.x + p.size/2, p.y + p.size/2, p.color);
+            showNotif(p.data);
+            if (game.collected === c.plants) setTimeout(() => completeLevel(), 500);
+        }
+    });
+    
+    if (!game.invulnerable) {
+        game.obstacles.forEach(o => {
+            if (collision(game.player, o)) {
+                game.start += 5000; game.invulnerable = true; game.invTime = 2;
+                sound(110, 0.2, 'sawtooth', 0.4);
+                particles(game.player.x + game.player.size/2, game.player.y + game.player.size/2, o.color);
+            }
+        });
+    }
+    
+    game.particles = game.particles.filter(p => {
+        p.x += p.vx * dt; p.y += p.vy * dt; p.vy += 200 * dt; p.life -= dt * 1.5;
+        return p.life > 0;
+    });
+    
+    updateHUD();
+}
+
+function draw() {
+    const t = THEMES[game.level];
+    ctx.fillStyle = t.bg; ctx.fillRect(0, 0, 600, 400);
+    ctx.fillStyle = 'rgba(0,0,0,0.05)';
+    for (let x = 0; x < 600; x += 40)
+        for (let y = 0; y < 400; y += 40)
+            if ((x + y) % 80 === 0) ctx.fillRect(x, y, 20, 20);
+    
+    game.obstacles.forEach(o => {
+        ctx.fillStyle = o.color; ctx.fillRect(o.x, o.y, o.size, o.size);
+        ctx.strokeStyle = '#000'; ctx.lineWidth = 2; ctx.strokeRect(o.x, o.y, o.size, o.size);
+    });
+    
+    game.plants.forEach(p => {
+        if (!p.collected) {
+            const pulse = Math.sin(p.pulse) * 2;
+            ctx.fillStyle = p.color;
+            ctx.fillRect(p.x - pulse, p.y - pulse, p.size + pulse * 2, p.size + pulse * 2);
+            ctx.fillStyle = 'rgba(255,255,255,0.5)';
+            ctx.fillRect(p.x + 5, p.y, 10, 5);
+        }
+    });
+    
+    game.particles.forEach(p => {
+        ctx.fillStyle = p.color; ctx.globalAlpha = p.life;
+        ctx.fillRect(p.x, p.y, p.size, p.size);
+        ctx.globalAlpha = 1;
+    });
+    
+    if (game.invulnerable && Math.floor(Date.now() / 100) % 2 === 0) ctx.globalAlpha = 0.5;
+    ctx.fillStyle = '#2c3e50'; ctx.fillRect(game.player.x, game.player.y, game.player.size, game.player.size);
+    ctx.fillStyle = 'white'; ctx.fillRect(game.player.x + 5, game.player.y + 5, 10, 10);
+    ctx.globalAlpha = 1;
+}
+
+function startGame() {
+    try { audioCtx = new (window.AudioContext || window.webkitAudioContext)(); } catch(e) {}
+    game.level = 0; initLevel(); game.start = Date.now(); game.running = true;
+    document.getElementById('start-modal').style.display = 'none';
+    last = performance.now(); requestAnimationFrame(loop);
+}
+
+function completeLevel() {
+    game.running = false;
+    sound(523, 0.15, 'sine', 0.4);
+    setTimeout(() => sound(659, 0.15, 'sine', 0.4), 150);
+    setTimeout(() => sound(784, 0.3, 'sine', 0.4), 300);
+    document.getElementById('level-msg').textContent = `¡${THEMES[game.level].name} completado!`;
+    document.getElementById('level-modal').style.display = 'flex';
+}
+
+function nextLevel() {
+    document.getElementById('level-modal').style.display = 'none';
+    game.level++;
+    if (game.level >= LEVELS.length) {
+        document.getElementById('victory-modal').style.display = 'flex';
+        return;
+    }
+    initLevel(); game.start = Date.now(); game.running = true;
+    last = performance.now(); requestAnimationFrame(loop);
+}
+
+function endGame(win) {
+    if (!game.running) return;
+    game.running = false;
+    const c = LEVELS[game.level];
+    document.getElementById('game-over-title').textContent = win ? '¡Éxito!' : '¡Tiempo Agotado!';
+    document.getElementById('game-over-msg').textContent = `Plantas: ${game.collected}/${c.plants}`;
+    document.getElementById('game-over-modal').style.display = 'flex';
+}
+
+function restartLevel() {
+    document.getElementById('game-over-modal').style.display = 'none';
+    initLevel(); game.start = Date.now(); game.running = true;
+    last = performance.now(); requestAnimationFrame(loop);
+}
+
+function playAgain() {
+    document.getElementById('victory-modal').style.display = 'none';
+    startGame();
+}
+
+window.addEventListener('keydown', e => {
+    game.keys[e.key.toLowerCase()] = true;
+    if (e.key === 'Shift') game.player.sprint = true;
+});
+
+window.addEventListener('keyup', e => {
+    game.keys[e.key.toLowerCase()] = false;
+    if (e.key === 'Shift') game.player.sprint = false;
+});
+
+document.getElementById('start-btn').addEventListener('click', startGame);
+document.getElementById('next-btn').addEventListener('click', nextLevel);
+document.getElementById('restart-btn').addEventListener('click', restartLevel);
+document.getElementById('play-again-btn').addEventListener('click', playAgain);
+</script>
+</body>
+</html>
