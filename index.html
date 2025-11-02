@@ -3,66 +3,16 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Saberes Ancestrales - Plantas Medicinales del Caribe Colombiano</title>
+    <title>Acceso - Saberes Ancestrales</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
     <style>
         :root {
-            /* Color variables for easy theming */
             --primary-green: #27ae60;
             --secondary-green: #2ecc71;
             --accent-red: #e74c3c;
             --dark-blue: #2c3e50;
-            --light-blue: #3498db;
-            --text-primary: #2c3e50;
-            --text-secondary: #666;
-            --bg-primary: #ffffff;
-            --bg-secondary: #f5f7fa;
             --bg-gradient: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
-            --shadow-light: 0 5px 20px rgba(0,0,0,0.1);
-            --shadow-hover: 0 15px 30px rgba(0,0,0,0.15);
-            --border-radius: 15px;
-            --transition-fast: 0.2s ease;
-            --transition-smooth: 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-            --blur-bg: rgba(255, 255, 255, 0.1);
         }
-
-        /* Dark mode variables */
-        [data-theme="dark"] {
-            --text-primary: #ecf0f1;
-            --text-secondary: #bdc3c7;
-            --bg-primary: #2c3e50;
-            --bg-secondary: #34495e;
-            --bg-gradient: linear-gradient(135deg, #2c3e50 0%, #34495e 100%);
-            --shadow-light: 0 5px 20px rgba(0,0,0,0.3);
-            --shadow-hover: 0 15px 30px rgba(0,0,0,0.4);
-            --blur-bg: rgba(44, 62, 80, 0.9);
-        }
-
-        [data-theme="light"] {
-            --text-primary: #2c3e50;
-            --text-secondary: #666;
-            --bg-primary: #ffffff;
-            --bg-secondary: #f5f7fa;
-            --bg-gradient: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
-            --shadow-light: 0 5px 20px rgba(0,0,0,0.1);
-            --shadow-hover: 0 15px 30px rgba(0,0,0,0.15);
-            --blur-bg: rgba(255, 255, 255, 0.85);
-        }
-
-
-        @media (prefers-color-scheme: dark) {
-            :root:not([data-theme="light"]) {
-                --text-primary: #ecf0f1;
-                --text-secondary: #bdc3c7;
-                --bg-primary: #2c3e50;
-                --bg-secondary: #34495e;
-                --bg-gradient: linear-gradient(135deg, #2c3e50 0%, #34495e 100%);
-                --shadow-light: 0 5px 20px rgba(0,0,0,0.3);
-                --shadow-hover: 0 15px 30px rgba(0,0,0,0.4);
-                --blur-bg: rgba(44, 62, 80, 0.9);
-            }
-        }
-        
 
         * {
             margin: 0;
@@ -72,1413 +22,350 @@
 
         body {
             font-family: 'Georgia', serif;
-            line-height: 1.6;
-            color: var(--text-primary);
             background: var(--bg-gradient);
             min-height: 100vh;
-            transition: background var(--transition-smooth), color var(--transition-smooth);
-        }
-
-        html, body {
-            margin: 0;
-            padding: 0;
-            height: 100%;
-            overflow-x: hidden;
-        }
-
-        /* Loading animation */
-        .loading-overlay {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: var(--bg-primary);
             display: flex;
             align-items: center;
             justify-content: center;
-            z-index: 9999;
-            opacity: 1;
-            transition: opacity 0.5s ease;
+            padding: 20px;
         }
 
-        .loading-overlay.hidden {
-            opacity: 0;
-            pointer-events: none;
-        }
-
-        .loading-spinner {
-            width: 60px;
-            height: 60px;
-            border: 4px solid var(--primary-green);
-            border-top: 4px solid transparent;
-            border-radius: 50%;
-            animation: spin 1s linear infinite;
-        }
-
-        @keyframes spin {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
-        }
-
-       /* Enhanced Header with advanced glassmorphism */
-       /* Nuevo estilo centrado para el header */
-        /* Header moderno sin animaciones */
-        header {
-            position: fixed;
-            top: 0;
-            left: 0;
+        .access-container {
+            max-width: 900px;
             width: 100%;
-            z-index: 1000;
-            padding: 1rem 0;
-            background: var(--blur-bg);
-            backdrop-filter: blur(20px);
-            -webkit-backdrop-filter: blur(20px);
-            box-shadow: var(--shadow-light);
-            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-            display: flex;
-            justify-content: center;
-            align-items: center;
-        }
-
-        .header-content {
-            max-width: 1200px;
-            width: 100%;
-            padding: 0 2rem;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        /* Logo refinado */
-        .logo {
-            font-size: 2rem;
-            font-weight: bold;
-            text-decoration: none;
-            color: var(--text-primary);
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-        }
-
-        .logo::before {
-            content: "🌿";
-            font-size: 2rem;
-        }
-
-        /* Navegación moderna y clara */
-        nav ul {
-            list-style: none;
-            display: flex;
-            gap: 1rem;
-            align-items: center;
-            margin: 0;
-            padding: 0;
-        }
-
-        /*nav a {
-            color: white;
-            text-decoration: none;
-            font-weight: 500;
-            padding: 0.5rem 1rem;
-            border-radius: 25px;
-            background-color: transparent;
-            transition: background-color 0.2s ease;
-        }*/
-
-        nav a {
-            color:var(--text-primary);
-            text-decoration: none;
-            font-weight: 500;
-            padding: 0.6rem 1.2rem;
-            border-radius: 999px;
-            background-color: transparent;
-            transition: background-color 0.2s ease, color 0.2s ease, transform 0.2s ease;
-            display: inline-block;
-            position: relative;
-        }
-
-        nav a:hover,
-        nav a:focus-visible {
-            background-color: rgba(255, 255, 255, 0.15);
-            color:var(--text-primary);
-            transform: translateY(-1px);
-            outline: none;
-        }
-
-        nav a.active {
-            background-color: rgba(255, 255, 255, 0.25);
-            color: var(--text-primary);
-        }
-
-
-        nav a:hover {
-            background-color: rgba(255, 255, 255, 0.2);
-        }
-
-        nav a.active {
-            background-color: rgba(255, 255, 255, 0.3);
-        }
-
-        /* Botón de modo oscuro minimalista */
-        .theme-toggle {
-            background: var(--blur-bg);
-            border: 2px solid rgba(255,255,255,0.3);
-            border-radius: 25px;
-            padding: 0.4rem 0.8rem;
-            color: var(--text-primary);;
-            font-size: 1rem;
-            cursor: pointer;
-            transition: background-color 0.2s ease-in-out;
-        }
-
-        .theme-toggle:hover {
-            background: rgba(255,255,255,0.2);
-        }
-
-
-
-        nav ul {
-            list-style: none;
-            display: flex;
-            gap: 1rem;
-            align-items: center;
-        }
-
-        nav a:hover::before {
-            left: 100%;
-        }
-
-        nav a.active {
-            background-color: rgba(255,255,255,0.3);
-        }
-
-        /* Main Content with smooth transitions */
-        main {
-            margin-top: 80px;
-            min-height: calc(100vh - 80px);
-        }
-
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 2rem;
-        }
-
-        /* Enhanced Hero Section */
-        /**.hero {
-            text-align: center;
-            background: linear-gradient(135deg, rgba(46, 204, 113, 0.9), rgba(39, 174, 96, 0.9)), 
-                        url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 600"><rect fill="%23e8f5e8" width="1200" height="600"/><path fill="%23c8e6c9" d="M0,100 Q300,50 600,100 T1200,100 L1200,600 L0,600 Z"/></svg>');
-            color: white;
-            padding: 6rem 2rem 4rem;
-            margin: 2rem 0;
-            border-radius: var(--border-radius);
-            box-shadow: var(--shadow-light);
-            position: relative;
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.1);
             overflow: hidden;
-            animation: fadeInUp 1s ease-out;
         }
 
-        .hero::before {
-            content: '';
-            position: absolute;
-            top: -50%;
-            left: -50%;
-            width: 200%;
-            height: 200%;
-            background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, transparent 70%);
-            animation: heroShimmer 6s ease-in-out infinite;
-        }**/
-
-        .hero {
-            text-align: center;
-            background: linear-gradient(135deg, rgba(46, 204, 113, 0.5), rgba(39, 174, 96, 0.1)),
-                        url('saberes_ancestrales.jpeg');
-            background-size: cover;
-            background-position: center;
-            background-repeat: no-repeat;
-            opacity: 0.97;
-            color: white;
-            padding: 6rem 2rem 4rem;
-            margin: 2rem 0;
-            border-radius: var(--border-radius);
-            box-shadow: var(--shadow-light);
-            position: relative;
-            overflow: hidden;
-            animation: fadeInUp 1s ease-out;
-        }
-
-        .hero::before {
-           content: '';
-            position: absolute;
-            top: -50%;
-            left: -50%;
-            width: 200%;
-            height: 200%;
-            background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, transparent 70%);
-            animation: heroShimmer 6s ease-in-out infinite;
-        }
-
-        .hero h1,
-        .hero p,
-        .hero .cta-button {
-            position: relative;
-            z-index: 1; /* aseguran que el texto y botón estén sobre la imagen */
-        }
-
-
-        @keyframes heroShimmer {
-            0%, 100% { transform: translateX(-20px) translateY(-20px) rotate(0deg); }
-            50% { transform: translateX(20px) translateY(20px) rotate(180deg); }
-        }
-
-        @keyframes fadeInUp {
-            from {
-                opacity: 0;
-                transform: translateY(30px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        .hero h1 {
-            font-size: clamp(2rem, 5vw, 3.5rem);
-            margin-bottom: 1rem;
-            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
-            position: relative;
-            z-index: 1;
-            animation: textGlow 3s ease-in-out infinite alternate;
-        }
-
-        @keyframes textGlow {
-            from { text-shadow: 2px 2px 4px rgba(0,0,0,0.3); }
-            to { text-shadow: 2px 2px 20px rgba(255,255,255,0.3); }
-        }
-
-        .hero p {
-            font-size: clamp(1.1rem, 2.5vw, 1.4rem);
-            max-width: 700px;
-            margin: 0 auto 2rem;
-            position: relative;
-            z-index: 1;
-        }
-
-        /* Enhanced CTA Button */
-        .cta-button {
-            background: linear-gradient(45deg, var(--accent-red), #c0392b);
-            color: white;
-            padding: 1rem 2.5rem;
-            text-decoration: none;
-            border-radius: 50px;
-            font-size: 1.1rem;
-            font-weight: bold;
-            transition: all var(--transition-smooth);
-            display: inline-block;
-            position: relative;
-            overflow: hidden;
-            box-shadow: 0 4px 15px rgba(231, 76, 60, 0.4);
-        }
-
-        .cta-button::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: -100%;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
-            transition: left 0.6s;
-        }
-
-        .cta-button:hover::before {
-            left: 100%;
-        }
-
-        .cta-button:hover {
-            transform: translateY(-5px) scale(1.05);
-            box-shadow: 0 15px 35px rgba(231, 76, 60, 0.5);
-        }
-
-        .cta-button:active {
-            transform: translateY(-2px) scale(1.02);
-        }
-
-        /* Enhanced Cards with micro-interactions */
-        .cards-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 2rem;
-            margin: 3rem 0;
-        }
-
-        .card {
-            background: var(--bg-primary);
-            border-radius: var(--border-radius);
-            padding: 2rem;
-            box-shadow: var(--shadow-light);
-            transition: all var(--transition-smooth);
-            border-left: 5px solid var(--primary-green);
-            position: relative;
-            overflow: hidden;
-            animation: slideInFromBottom 0.6s ease-out;
-            animation-fill-mode: both;
-        }
-
-        .card:nth-child(1) { animation-delay: 0.1s; }
-        .card:nth-child(2) { animation-delay: 0.2s; }
-        .card:nth-child(3) { animation-delay: 0.3s; }
-
-        @keyframes slideInFromBottom {
-            from {
-                opacity: 0;
-                transform: translateY(50px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        .card::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 4px;
-            background: linear-gradient(90deg, var(--primary-green), var(--secondary-green));
-            transform: scaleX(0);
-            transition: transform var(--transition-smooth);
-        }
-
-        .card:hover::before {
-            transform: scaleX(1);
-        }
-
-        .card:hover {
-            transform: translateY(-10px);
-            box-shadow: var(--shadow-hover);
-            border-left-width: 8px;
-        }
-
-        .card h3 {
-            color: var(--primary-green);
-            margin-bottom: 1rem;
-            font-size: 1.5rem;
-            transition: color var(--transition-fast);
-        }
-
-        .card:hover h3 {
-            color: var(--secondary-green);
-        }
-
-        .card p {
-            color: var(--text-secondary);
-            margin-bottom: 1.5rem;
-            line-height: 1.7;
-        }
-
-        .card-link {
-            color: var(--accent-red);
-            text-decoration: none;
-            font-weight: bold;
-            border-bottom: 2px solid transparent;
-            transition: all var(--transition-fast);
-            position: relative;
-        }
-
-        .card-link::after {
-            content: '→';
-            margin-left: 0.5rem;
-            transition: transform var(--transition-fast);
-        }
-
-        .card-link:hover::after {
-            transform: translateX(5px);
-        }
-
-        .card-link:hover {
-            border-bottom-color: var(--accent-red);
-            transform: translateX(5px);
-        }
-
-        /* Enhanced Search Bar */
-        .search-container {
-            text-align: center;
-            margin: 3rem 0;
-        }
-
-        .search-bar {
-            max-width: 600px;
-            position: relative;
-            margin: 0 auto;
-            container-type: inline-size;
-        }
-
-        .search-bar input {
-            width: 100%;
-            padding: 1.2rem 4rem 1.2rem 1.5rem;
-            font-size: 1.1rem;
-            border: 2px solid var(--primary-green);
-            border-radius: 50px;
-            outline: none;
-            transition: all var(--transition-smooth);
-            background: var(--bg-primary);
-            color: var(--text-primary);
-            box-shadow: var(--shadow-light);
-        }
-
-        .search-bar input:focus {
-            box-shadow: 0 0 30px rgba(39, 174, 96, 0.4);
-            transform: scale(1.02);
-            border-color: var(--secondary-green);
-        }
-
-        .search-bar input::placeholder {
-            color: var(--text-secondary);
-            opacity: 0.7;
-        }
-
-        .search-button {
-            position: absolute;
-            right: 8px;
-            top: 50%;
-            transform: translateY(-50%);
-            background: linear-gradient(45deg, var(--primary-green), var(--secondary-green));
-            color: white;
-            border: none;
-            padding: 1rem;
-            border-radius: 50%;
-            cursor: pointer;
-            transition: all var(--transition-fast);
-            box-shadow: 0 2px 10px rgba(39, 174, 96, 0.3);
-        }
-
-        .search-button:hover {
-            background: linear-gradient(45deg, var(--secondary-green), var(--primary-green));
-            transform: translateY(-50%) scale(1.1);
-            box-shadow: 0 4px 20px rgba(39, 174, 96, 0.5);
-        }
-
-        /* Enhanced Plant Gallery */
-        .plant-gallery {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 2rem;
-            margin: 2rem 0;
-        }
-
-        .plant-card {
-            background: var(--bg-primary);
-            border-radius: var(--border-radius);
-            overflow: hidden;
-            box-shadow: var(--shadow-light);
-            transition: all var(--transition-smooth);
-            cursor: pointer;
-            position: relative;
-        }
-
-        .plant-card::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: linear-gradient(135deg, transparent 0%, rgba(39, 174, 96, 0.1) 100%);
-            opacity: 0;
-            transition: opacity var(--transition-smooth);
-            z-index: 1;
-        }
-
-        .plant-card:hover::before {
-            opacity: 1;
-        }
-
-        .plant-card:hover {
-            transform: translateY(-8px) scale(1.03);
-            box-shadow: var(--shadow-hover);
-        }
-
-        .plant-image {
-            width: 100%;
-            height: 220px;
+        .header-section {
             background: linear-gradient(135deg, var(--primary-green), var(--secondary-green));
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 4rem;
             color: white;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .plant-image::before {
-            content: '';
-            position: absolute;
-            top: -50%;
-            left: -50%;
-            width: 200%;
-            height: 200%;
-            background: radial-gradient(circle, rgba(255,255,255,0.3) 0%, transparent 70%);
-            animation: plantShimmer 4s linear infinite;
-        }
-
-        @keyframes plantShimmer {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
-        }
-
-        .plant-info {
-            padding: 1.5rem;
-            position: relative;
-            z-index: 2;
-        }
-
-        .plant-info h4 {
-            color: var(--primary-green);
-            margin-bottom: 0.8rem;
-            font-size: 1.3rem;
-            transition: color var(--transition-fast);
-        }
-
-        .plant-card:hover .plant-info h4 {
-            color: var(--secondary-green);
-        }
-
-        .plant-info p {
-            color: var(--text-secondary);
-            font-size: 0.95rem;
-            margin-bottom: 0.5rem;
-            line-height: 1.6;
-        }
-
-        .plant-info strong {
-            color: var(--text-primary);
-        }
-
-        /* Enhanced Stories Section */
-        .story-card {
-            background: var(--bg-primary);
-            border-radius: var(--border-radius);
-            padding: 2.5rem;
-            margin: 2rem 0;
-            box-shadow: var(--shadow-light);
-            border-left: 5px solid var(--accent-red);
-            position: relative;
-            overflow: hidden;
-            transition: all var(--transition-smooth);
-        }
-
-        .story-card::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            right: -100px;
-            width: 100px;
-            height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(231, 76, 60, 0.05));
-            transition: right var(--transition-smooth);
-        }
-
-        .story-card:hover::before {
-            right: 0;
-        }
-
-        .story-card:hover {
-            transform: translateX(10px);
-            box-shadow: var(--shadow-hover);
-        }
-
-        .story-header {
-            display: flex;
-            align-items: center;
-            gap: 1.5rem;
-            margin-bottom: 1.5rem;
-        }
-
-        .storyteller-avatar {
-            width: 70px;
-            height: 70px;
-            border-radius: 50%;
-            background: linear-gradient(135deg, var(--accent-red), #c0392b);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: white;
-            font-size: 1.8rem;
-            font-weight: bold;
-            transition: transform var(--transition-fast);
-            position: relative;
-            overflow: hidden;
-        }
-
-        .storyteller-avatar::before {
-            content: '';
-            position: absolute;
-            top: -50%;
-            left: -50%;
-            width: 200%;
-            height: 200%;
-            background: conic-gradient(transparent, rgba(255,255,255,0.3), transparent);
-            animation: avatarRotate 3s linear infinite;
-        }
-
-        @keyframes avatarRotate {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
-        }
-
-        .story-card:hover .storyteller-avatar {
-            transform: scale(1.1);
-        }
-
-        .storyteller-info h4 {
-            color: var(--accent-red);
-            margin-bottom: 0.3rem;
-            font-size: 1.3rem;
-        }
-
-        .storyteller-info p {
-            color: var(--text-secondary);
-            font-size: 0.9rem;
-        }
-
-        .story-content h4 {
-            color: var(--primary-green);
-            margin-bottom: 1rem;
-            font-size: 1.4rem;
-        }
-
-        .story-content p {
-            color: var(--text-primary);
-            margin-bottom: 1rem;
-            line-height: 1.7;
-        }
-
-        /* Enhanced Experience Cards */
-        .experience-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-            gap: 2rem;
-            margin: 2rem 0;
-        }
-
-        .experience-card {
-            background: var(--bg-primary);
-            border-radius: var(--border-radius);
-            overflow: hidden;
-            box-shadow: var(--shadow-light);
-            transition: all var(--transition-smooth);
-            position: relative;
-        }
-
-        .experience-card::after {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: linear-gradient(135deg, transparent 0%, rgba(52, 152, 219, 0.1) 100%);
-            opacity: 0;
-            transition: opacity var(--transition-smooth);
-        }
-
-        .experience-card:hover::after {
-            opacity: 1;
-        }
-
-        .experience-card:hover {
-            transform: translateY(-8px) rotateY(5deg);
-            box-shadow: var(--shadow-hover);
-        }
-
-        .experience-image {
-            width: 100%;
-            height: 200px;
-            background: linear-gradient(135deg, var(--light-blue), #2980b9);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: white;
-            font-size: 3rem;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .experience-image::before {
-            content: '';
-            position: absolute;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(45deg, transparent 30%, rgba(255,255,255,0.2) 50%, transparent 70%);
-            transform: translateX(-100%);
-            transition: transform 0.8s;
-        }
-
-        .experience-card:hover .experience-image::before {
-            transform: translateX(100%);
-        }
-
-        .experience-content {
-            padding: 1.5rem;
-            position: relative;
-            z-index: 2;
-        }
-
-        .experience-content h4 {
-            color: var(--light-blue);
-            margin-bottom: 1rem;
-            font-size: 1.3rem;
-        }
-
-        .experience-content p {
-            color: var(--text-secondary);
-            margin-bottom: 0.8rem;
-            line-height: 1.6;
-        }
-
-        /* Breadcrumb improvements */
-        .breadcrumb {
-            margin: 1rem 0;
-            color: var(--text-secondary);
-            font-size: 0.9rem;
-        }
-
-        .breadcrumb a {
-            color: var(--primary-green);
-            text-decoration: none;
-            transition: all var(--transition-fast);
-            padding: 0.2rem 0.5rem;
-            border-radius: 5px;
-        }
-
-        .breadcrumb a:hover {
-            background: rgba(39, 174, 96, 0.1);
-            transform: translateX(3px);
-        }
-
-       .main {
-            padding-top: 100px; /* Altura del header */
-            padding-bottom: 4rem;
-        }
-
-        .section {
-            margin-bottom: 4rem;
-            min-height: calc(100vh - 100px); /* Asegura que cada sección llene el viewport */
-            opacity: 0;
-            transform: translateY(20px);
-            transition: all 0.5s ease;
-            pointer-events: none;
-        }
-
-        .section.active {
-            opacity: 1;
-            transform: translateY(0);
-            pointer-events: auto;
-        }
-
-        /* Enhanced footer */
-        footer {
-            background: var(--dark-blue);
-            color: white;
-            text-align: center;
             padding: 3rem 2rem;
-            margin-top: 4rem;
-            position: relative;
-            overflow: hidden;
-        }
-
-        footer::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            height: 4px;
-            background: linear-gradient(90deg, var(--primary-green), var(--secondary-green), var(--accent-red));
-        }
-
-        /* Focus styles for accessibility */
-        *:focus-visible {
-            outline: 3px solid var(--light-blue);
-            outline-offset: 2px;
-            border-radius: 4px;
-        }
-
-        /* Container queries for responsive design */
-        @container (max-width: 500px) {
-            .search-bar input {
-                padding: 1rem 3.5rem 1rem 1rem;
-                font-size: 1rem;
-            }
-        }
-
-        /* No results message */
-        .no-results {
             text-align: center;
-            padding: 3rem;
-            color: var(--text-secondary);
+        }
+
+        .header-section h1 {
+            font-size: 2rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .header-section p {
             font-size: 1.1rem;
+            opacity: 0.95;
+        }
+
+        .content-section {
+            padding: 2rem;
+        }
+
+        /* Sección del cuestionario */
+        .questionnaire-section {
+            display: block;
+        }
+
+        .questionnaire-section.hidden {
             display: none;
         }
 
-        .no-results.show {
+        .instructions {
+            background: #f8f9fa;
+            padding: 1.5rem;
+            border-radius: 10px;
+            margin-bottom: 1.5rem;
+            border-left: 4px solid var(--primary-green);
+        }
+
+        .instructions h3 {
+            color: var(--dark-blue);
+            margin-bottom: 0.5rem;
+        }
+
+        .instructions ol {
+            margin-left: 1.5rem;
+            color: #666;
+        }
+
+        .instructions li {
+            margin: 0.5rem 0;
+        }
+
+        .form-container {
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            margin-bottom: 1.5rem;
+        }
+
+        iframe {
+            width: 100%;
+            border: none;
+        }
+
+        /* Sección del código de acceso */
+        .access-section {
+            display: none;
+            text-align: center;
+        }
+
+        .access-section.active {
             display: block;
             animation: fadeIn 0.5s ease;
         }
 
         @keyframes fadeIn {
-            from { opacity: 0; }
-            to { opacity: 1; }
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
         }
 
-        /* Scroll-triggered animations */
-        .fade-in-on-scroll {
-            opacity: 0;
-            transform: translateY(30px);
-            transition: all 0.6s ease;
+        .access-section h3 {
+            color: var(--dark-blue);
+            margin-bottom: 1rem;
+            font-size: 1.5rem;
         }
 
-        .fade-in-on-scroll.in-view {
-            opacity: 1;
-            transform: translateY(0);
+        .access-code-display {
+            background: linear-gradient(135deg, var(--primary-green), var(--secondary-green));
+            color: white;
+            padding: 2rem;
+            border-radius: 15px;
+            margin: 2rem 0;
+            font-size: 2rem;
+            font-weight: bold;
+            letter-spacing: 8px;
+            box-shadow: 0 8px 25px rgba(39, 174, 96, 0.3);
         }
 
-        /* Enhanced responsive design */
+        .code-input-group {
+            margin: 2rem 0;
+        }
+
+        .code-input {
+            width: 100%;
+            max-width: 400px;
+            padding: 1rem;
+            font-size: 1.5rem;
+            text-align: center;
+            letter-spacing: 8px;
+            border: 3px solid var(--primary-green);
+            border-radius: 10px;
+            outline: none;
+            text-transform: uppercase;
+            transition: all 0.3s ease;
+        }
+
+        .code-input:focus {
+            border-color: var(--secondary-green);
+            box-shadow: 0 0 20px rgba(39, 174, 96, 0.3);
+        }
+
+        .btn {
+            background: linear-gradient(45deg, var(--primary-green), var(--secondary-green));
+            color: white;
+            border: none;
+            padding: 1rem 3rem;
+            font-size: 1.1rem;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(39, 174, 96, 0.3);
+            margin: 1rem 0.5rem;
+            font-family: 'Georgia', serif;
+        }
+
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(39, 174, 96, 0.4);
+        }
+
+        .btn-secondary {
+            background: linear-gradient(45deg, var(--accent-red), #c0392b);
+            box-shadow: 0 4px 15px rgba(231, 76, 60, 0.3);
+        }
+
+        .btn-secondary:hover {
+            box-shadow: 0 6px 20px rgba(231, 76, 60, 0.4);
+        }
+
+        .error-message {
+            background: #fee;
+            color: var(--accent-red);
+            padding: 1rem;
+            border-radius: 10px;
+            margin: 1rem 0;
+            border-left: 4px solid var(--accent-red);
+            display: none;
+        }
+
+        .error-message.show {
+            display: block;
+            animation: shake 0.5s ease;
+        }
+
+        @keyframes shake {
+            0%, 100% { transform: translateX(0); }
+            25% { transform: translateX(-10px); }
+            75% { transform: translateX(10px); }
+        }
+
+        .success-icon {
+            font-size: 4rem;
+            color: var(--primary-green);
+            margin: 1rem 0;
+        }
+
         @media (max-width: 768px) {
-            .header-content {
-                flex-direction: column;
-                gap: 1rem;
-                padding: 1rem;
+            .header-section {
+                padding: 2rem 1rem;
             }
 
-            nav ul {
-                flex-wrap: wrap;
-                justify-content: center;
-                gap: 0.5rem;
+            .header-section h1 {
+                font-size: 1.5rem;
             }
 
-            .hero {
-                padding: 4rem 1rem 3rem;
-                margin: 1rem;
-            }
-
-            .container {
-                padding: 1rem;
-            }
-
-            .cards-grid, .plant-gallery, .experience-grid {
-                grid-template-columns: 1fr;
-                gap: 1.5rem;
-            }
-
-            .story-header {
-                flex-direction: column;
-                text-align: center;
-                gap: 1rem;
-            }
-        }
-
-        @media (max-width: 480px) {
-            .hero h1 {
-                font-size: 1.8rem;
-            }
-            
-            .cta-button {
-                padding: 0.8rem 1.5rem;
-                font-size: 1rem;
-            }
-            
-            .card, .story-card {
+            .content-section {
                 padding: 1.5rem;
             }
 
-            .theme-toggle {
-                padding: 0.4rem 0.8rem;
-                font-size: 0.9rem;
+            .code-input {
+                font-size: 1.2rem;
+                letter-spacing: 4px;
             }
 
-            nav ul {
-                gap: 0.3rem;
-            }
-
-            nav a {
-                padding: 0.4rem 0.8rem;
-                font-size: 0.9rem;
+            .access-code-display {
+                font-size: 1.5rem;
+                letter-spacing: 4px;
             }
         }
-
-        .plant-card, .cta-button, .story-card {
-            will-change: transform, opacity;
-        }
-
-        /* ===== Contacto flotante ===== */
-        .contact-float {
-        position: fixed;
-        right: 25px;
-        bottom: 25px;
-        background: var(--primary-green);
-        color: white;
-        width: 60px;
-        height: 60px;
-        border-radius: 50%;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        font-size: 1.8rem;
-        box-shadow: var(--shadow-hover);
-        cursor: pointer;
-        transition: transform 0.3s ease, 0.3s ease;
-        z-index: 2000;
-        }
-
-        .contact-float:hover {
-        transform: scale(1.1);
-        background: var(--secondary-green);
-        }
-
-        /* ===== Formulario emergente ===== */
-        .contact-form-popup {
-        position: fixed;
-        right: 30px;
-        bottom: 100px;
-        width: 400px;
-        background: var(--bg-primary);
-        box-shadow: var(--shadow-hover);
-        border-radius: var(--border-radius);
-        padding: 1.5rem;
-        transform: translateY(20px);
-        opacity: 0;
-        pointer-events: none;
-        transition: all 0.4s ease;
-        z-index: 1999;
-        }
-
-        .contact-form-popup.show {
-        opacity: 1;
-        transform: translateY(0);
-        pointer-events: auto;
-        }
-
-        .contact-form-popup h3 {
-        margin-bottom: 1rem;
-        color: var(--primary-green);
-        text-align: center;
-        }
-
-        .contact-form-popup label {
-        font-weight: bold;
-        font-size: 0.9rem;
-        color: var(--text-primary);
-        }
-
-        .contact-form-popup input,
-        .contact-form-popup textarea {
-        width: 100%;
-        padding: 0.6rem;
-        margin-top: 0.3rem;
-        margin-bottom: 1rem;
-        border: 2px solid var(--primary-green);
-        border-radius: 8px;
-        background: var(--bg-secondary);
-        color: var(--text-primary);
-        outline: none;
-        transition: border-color 0.3s;
-        }
-
-        .contact-form-popup input:focus,
-        .contact-form-popup textarea:focus {
-        border-color: var(--secondary-green);
-        }
-
-        .contact-form-popup button {
-        background: linear-gradient(45deg, var(--primary-green), var(--secondary-green));
-        color: white;
-        border: none;
-        padding: 0.7rem 1.5rem;
-        border-radius: 25px;
-        cursor: pointer;
-        font-weight: bold;
-        width: 100%;
-        transition: transform 0.2s ease;
-        }
-
-        .contact-form-popup button:hover {
-        transform: scale(1.05);
-        }
-
     </style>
-    <script>
-        // Enhanced navigation functionality
-        function showSection(sectionId) {
-            // Hide all sections with animation
-            const sections = document.querySelectorAll('.section');
-            sections.forEach(section => {
-                section.classList.remove('active');
-            });
-            
-            // Show selected section with delay for smooth transition
-            setTimeout(() => {
-                const targetSection = document.getElementById(sectionId);
-                if (targetSection) {
-                    targetSection.classList.add('active');
-                }
-            }, 100);
-            
-            // Update navigation active state
-            const navLinks = document.querySelectorAll('.nav-link');
-            navLinks.forEach(link => {
-                link.classList.remove('active');
-            });
-            
-            // Add active class to current nav link
-            const currentNavLink = document.querySelector(`[onclick="showSection('${sectionId}')"]`);
-            if (currentNavLink && currentNavLink.classList.contains('nav-link')) {
-                currentNavLink.classList.add('active');
-            }
-            
-            // Scroll to top smoothly
-            window.scrollTo({ top: 0, behavior: 'smooth' });
-        }
-        
-        // Enhanced search functionality for plants
-        function searchPlants() {
-            const searchTerm = document.getElementById('plantSearch').value.toLowerCase();
-            const plantCards = document.querySelectorAll('.plant-card');
-            const noResults = document.querySelector('.no-results');
-            let hasResults = false;
-            
-            plantCards.forEach((card, index) => {
-                const plantInfo = card.textContent.toLowerCase();
-                if (plantInfo.includes(searchTerm) || searchTerm.trim() === '') {
-                    card.style.display = 'block';
-                    card.style.animation = `fadeIn 0.5s ease ${index * 0.1}s both`;
-                    hasResults = true;
-                } else {
-                    card.style.display = 'none';
-                }
-            });
-            
-            // Show/hide no results message
-            if (!hasResults && searchTerm.trim() !== '') {
-                if (!noResults) {
-                    const noResultsDiv = document.createElement('div');
-                    noResultsDiv.className = 'no-results';
-                    noResultsDiv.innerHTML = `
-                        <h3>🔍 No se encontraron resultados</h3>
-                        <p>No encontramos plantas que coincidan con "${searchTerm}". <br>
-                        Intenta con otros términos como "digestivo", "respiratorio" o el nombre de la planta.</p>
-                    `;
-                    document.querySelector('.plant-gallery').parentNode.insertBefore(noResultsDiv, document.querySelector('.plant-gallery').nextSibling);
-                }
-                document.querySelector('.no-results').classList.add('show');
-            } else if (noResults) {
-                noResults.classList.remove('show');
-            }
-        }
-        
-        // Theme toggle functionality
-        function toggleTheme() {
-            console.log("Hola Mundo");
-            const body = document.body;
-            const themeToggle = document.querySelector('.theme-toggle');
-            const currentTheme = body.getAttribute('data-theme');
-            
-            if (currentTheme === 'dark') {
-                body.setAttribute('data-theme', 'light');
-                themeToggle.innerHTML = '🌙';
-                localStorage.setItem('theme', 'light');
-            } else {
-                body.setAttribute('data-theme', 'dark');
-                themeToggle.innerHTML = '☀️';
-                localStorage.setItem('theme', 'dark');
-            }
-        }
-
-        
-        
-        // Scroll progress indicator
-        function updateScrollProgress() {
-            const scrollProgress = document.getElementById('scrollProgress');
-            const scrollTop = window.pageYOffset;
-            const docHeight = document.body.scrollHeight - window.innerHeight;
-            const scrollPercent = (scrollTop / docHeight) * 100;
-            
-            scrollProgress.style.width = scrollPercent + '%';
-        }
-        
-        // Intersection Observer for scroll animations
-        function initScrollAnimations() {
-            const observerOptions = {
-                threshold: 0.1,
-                rootMargin: '0px 0px -50px 0px'
-            };
-            
-            const observer = new IntersectionObserver((entries) => {
-                entries.forEach(entry => {
-                    if (entry.isIntersecting) {
-                        entry.target.classList.add('in-view');
-                    }
-                });
-            }, observerOptions);
-            
-            // Observe all elements with fade-in-on-scroll class
-            document.querySelectorAll('.fade-in-on-scroll').forEach(el => {
-                observer.observe(el);
-            });
-        }
-        
-        // Loading animation
-        function hideLoader() {
-            const loader = document.getElementById('loadingOverlay');
-            setTimeout(() => {
-                loader.classList.add('hidden');
-            }, 1000);
-        }
-        
-        // Initialize everything when DOM is loaded
-        document.addEventListener('DOMContentLoaded', function() {
-            // Hide loading overlay
-            hideLoader();
-            
-            // Initialize theme
-            const savedTheme = localStorage.getItem('theme');
-            if (savedTheme) {
-                document.body.setAttribute('data-theme', savedTheme);
-                document.querySelector('.theme-toggle').innerHTML = savedTheme === 'dark' ? '☀️' : '🌙';
-            }
-            
-            // Initialize scroll animations
-            initScrollAnimations();
-            
-            // Search functionality
-            const searchInput = document.getElementById('plantSearch');
-            if (searchInput) {
-                searchInput.addEventListener('keypress', function(e) {
-                    if (e.key === 'Enter') {
-                        searchPlants();
-                    }
-                });
-                
-                // Real-time search
-                searchInput.addEventListener('input', function() {
-                    clearTimeout(this.searchTimeout);
-                    this.searchTimeout = setTimeout(() => {
-                        searchPlants();
-                    }, 300);
-                });
-            }
-            
-            // Scroll progress
-            window.addEventListener('scroll', updateScrollProgress);
-            
-            // Smooth scrolling for internal links
-            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-                anchor.addEventListener('click', function (e) {
-                    e.preventDefault();
-                    const target = document.querySelector(this.getAttribute('href'));
-                    if (target) {
-                        target.scrollIntoView({
-                            behavior: 'smooth',
-                            block: 'start'
-                        });
-                    }
-                });
-            });
-            
-            // Add hover effects to cards
-            document.querySelectorAll('.plant-card').forEach(card => {
-                card.addEventListener('mouseenter', function() {
-                    this.style.transform = 'translateY(-8px) scale(1.03)';
-                });
-                
-                card.addEventListener('mouseleave', function() {
-                    this.style.transform = 'translateY(0) scale(1)';
-                });
-            });
-            
-            // Add click effects to buttons
-            document.querySelectorAll('.cta-button, .search-button').forEach(button => {
-                button.addEventListener('click', function() {
-                    this.style.transform = 'scale(0.95)';
-                    setTimeout(() => {
-                        this.style.transform = '';
-                    }, 150);
-                });
-            });
-        });
-        
-        // Performance optimization: Debounce scroll events
-        function debounce(func, wait) {
-            let timeout;
-            return function executedFunction(...args) {
-                const later = () => {
-                    clearTimeout(timeout);
-                    func(...args);
-                };
-                clearTimeout(timeout);
-                timeout = setTimeout(later, wait);
-            };
-        }
-
-                document.addEventListener("DOMContentLoaded", function () {
-    const contactBtn = document.getElementById("contactFloat");
-    const contactForm = document.getElementById("contactForm");
-
-    contactBtn.addEventListener("click", function () {
-      contactForm.classList.toggle("show");
-    });
-
-    const form = document.getElementById("contactFormInner");
-    form.addEventListener("submit", function (e) {
-      e.preventDefault();
-      alert("¡Gracias por tu mensaje! Nos pondremos en contacto pronto.");
-      contactForm.classList.remove("show");
-      form.reset();
-    });
-  });
-
-        
-        // Apply debouncing to scroll handler
-        window.addEventListener('scroll', debounce(updateScrollProgress, 10));
-    </script>
 </head>
 <body>
-    <!-- Loading overlay -->
-    <div class="loading-overlay" id="loadingOverlay">
-        <div class="loading-spinner"></div>
-    </div>
-
-    <!-- Scroll progress indicator -->
-    <div class="scroll-progress" id="scrollProgress"></div>
-
-    <header>
-        <div class="header-content">
-            <a href="#inicio" class="logo" onclick="showSection('inicio')">Saberes Ancestrales</a>
-            <nav>
-                <ul>
-                     <li><a href="index.html" class="nav-link active">Inicio</a></li>
-                    <li><a href="museo.html" class="nav-link">Plantas</a></li>
-                    <li><a href="historiasOrales.html" class="nav-link">Historias</a></li>
-                    <li><a href="experiencias.html" class="nav-link">Experiencias</a></li>
-                    <li><a href="juegos.html" class="nav-link">Juegos</a></li>
-                    <li><a href="videos.html" class="nav-link">Videos</a></li>
-                    <li><button class="theme-toggle" onclick="toggleTheme()">🌙</button></li>
-                </ul>
-            </nav>
+    <div class="access-container">
+        <div class="header-section">
+            <h1>🌿 Bienvenido a Saberes Ancestrales</h1>
+            <p>Por favor, completa el cuestionario para acceder al contenido</p>
         </div>
-    </header>
 
-    <main>
-        <!-- Landing Page -->
-        <section id="inicio" class="section active">
-            <div class="hero fade-in-on-scroll">
-                <h1>Saberes Ancestrales del Caribe Colombiano</h1>
-                <h2>Bienvenidos a este espacio educativo</h2>
-                <p>Donde podrás descubrir cómo la naturaleza nos habla, nos sana y nos conecta con nuestras raíces.</p>
-                <a href="museo.html" class="cta-button">Explorar el Museo</a>
-            </div>
-            
-            <div class="container">
-                <div class="fade-in-on-scroll">
-                    <h2>Propósito del Proyecto</h2>
-                    <p>Este proyecto educativo tiene como objetivo principal rescatar, documentar y preservar los saberes ancestrales sobre plantas medicinales en el Caribe colombiano. A través de una plataforma digital interactiva, buscamos crear un puente entre la sabiduría tradicional y las nuevas generaciones, promoviendo el respeto por nuestras raíces culturales y el conocimiento etnobotánico de nuestros antepasados.</p>
+        <div class="content-section">
+            <!-- Sección del Cuestionario -->
+            <div class="questionnaire-section" id="questionnaireSection">
+                <div class="instructions">
+                    <h3>📋 Instrucciones:</h3>
+                    <ol>
+                        <li>Completa el cuestionario a continuación</li>
+                        <li>Al finalizar, haz clic en "Enviar"</li>
+                        <li>Google Forms te mostrará un mensaje de confirmación</li>
+                        <li>Copia el codigo que te damos en el mensaje de confirmación</li>
+                        <li>Haz clic en "Ya completé el cuestionario" abajo</li>
+                        <li>Pega el codigo de acceso en la parte que se te indica</li>
+                    </ol>
                 </div>
-                
-                <div class="cards-grid">
-                    <div class="card">
-                        <h3>🏛️ Museo Digital</h3>
-                        <p>Explora nuestra colección digital de plantas medicinales del Caribe, con información detallada sobre sus propiedades, usos tradicionales y métodos de preparación.</p>
-                        <a href="museo.html" class="card-link" onclick="showSection('museo')">Visitar Museo</a>
-                    </div>
-                    
-                    <div class="card">
-                        <h3>👥 Historias de Sabedores</h3>
-                        <p>Conoce las experiencias y testimonios de los sabedores ancestrales, guardianes del conocimiento tradicional sobre plantas medicinales.</p>
-                        <a href="historiasOrales.html" class="card-link" onclick="showSection('historias')">Escuchar Historias</a>
-                    </div>
-                    
-                    <div class="card">
-                        <h3>🎓 Experiencias Estudiantiles</h3>
-                        <p>Descubre cómo los estudiantes están aprendiendo y aplicando estos conocimientos ancestrales en contextos educativos modernos.</p>
-                        <a href="experiencias.html" class="card-link" onclick="showSection('experiencias')">Ver Experiencias</a>
-                    </div>
-                </div>
-
-               <div class="fade-in-on-scroll" style="background: var(--bg-primary); padding: 2rem; border-radius: var(--border-radius); margin: 3rem 0; box-shadow: var(--shadow-light);">
-                    <h2>Objetivos</h2>
-                    <p>El Caribe colombiano es hogar de una rica diversidad cultural y biológica. Las comunidades afrodescendientes, indígenas y mestizas han desarrollado a lo largo de siglos un profundo conocimiento sobre las propiedades medicinales de la flora local. Este saber, transmitido de generación en generación a través de la tradición oral, representa un patrimonio invaluable que debemos preservar y valorar.</p>
-                    <h4 style="color: var(--primary-green); margin-top: 2rem;">Objetivo General del Proyecto:</h4>
-                    <ul style="margin: 1rem 0; padding-left: 2rem; color: var(--text-secondary);">
-                        <li> Diseñar una estrategia pedagógica que promueva la valoración de los saberes ancestrales sobre las plantas medicinales, orientada al desarrollo 
-                            de productos naturales con estudiantes de 11° de la Institución Educativa Distrital Juan José Rondón.</li>
-                    </ul>
-                    <h4 style="color: var(--primary-green); margin-top: 2rem;">Objetivos Especificos del Proyecto:</h4>
-                    <ul style="margin: 1rem 0; padding-left: 2rem; color: var(--text-secondary);">
-                        <li> Identificar los saberes ancestrales sobre plantas medicinales de la región caribe con los estudiantes de la IED Juan José Rondón.</li>
-                        <li>Establecer estrategias pedagógicas para el desarrollo de productos naturales con fines medicinales.</li>
-                        <li>Promover el diálogo intercultural e intergeneracional</li>
-                        <li> Producir un recurso digital sobre el uso de productos naturales basado en los saberes ancestrales.</li>
-                    </ul>
-                </div>
-
-                 <div class="fade-in-on-scroll" style="background: var(--bg-primary); padding: 2rem; border-radius: var(--border-radius); margin: 3rem 0; box-shadow: var(--shadow-light);">
-                   <h2>📜 Comparte tu experiencia en este lugar de saberes</h2>
-                   <p>Queremos conocer tu experiencia en nuestro sitio web
-                    Completa el siguiente formulario para ser parte de nuestro proyecto educativo.</p>
-                   <iframe src="https://docs.google.com/forms/d/e/1FAIpQLSe3MpRq_Vtxve3gp4wJ54BgiJ-zVrUWdsMnTqiSEdXgHa7QYw/viewform?embedded=true"
-                        width="100%"
-                        height="900"
+                <div class="form-container">
+                    <iframe 
+                        src="https://docs.google.com/forms/d/e/1FAIpQLSen_tWZi6D22KQrdtCuuYX-2dViFu9UwYkaAlOZnztWVz1ouQ/viewform?embedded=true"
+                        height="800"
                         frameborder="0"
                         marginheight="0"
-                        marginwidth="0"
-                        style="border-radius: 15px; box-shadow: 0 5px 20px rgba(0,0,0,0.1); background: var(--bg-primary);">
-                    Cargando…
-                </iframe>
+                        marginwidth="0">
+                        Cargando…
+                    </iframe>
+                </div>
+
+                <div style="text-align: center;">
+                    <button class="btn" onclick="showAccessCode()">
+                        ✓ Ya completé el cuestionario
+                    </button>
                 </div>
             </div>
-        </section>
-    </main>
 
-    <footer>
-        <div class="container">
-            <p>&copy; 2025 Saberes Ancestrales del Caribe Colombiano. Proyecto educativo dedicado a la preservación del conocimiento tradicional.</p>
-            <p style="margin-top: 1rem; font-size: 0.9rem; opacity: 0.8;">
-                Desarrollado con respeto por nuestras comunidades y en colaboración con sabedores tradicionales del Caribe colombiano.
-            </p>
-            <a href="https://www.instagram.com/juanjoserondon.ied?igsh=bnpoanJvM3diZXE5" target="_blank" 
-       style="display: inline-block; margin-top: 1rem; margin-right: 1rem; color: inherit;">
-      <i class="fab fa-instagram" style="font-size: 1.8rem; color: #E4405F;"></i>
-      <a href="https://www.youtube.com/watch?v=gZDw1hNU70Y&list=RDgZDw1hNU70Y&start_radio=1" target="_blank" 
-       style="display: inline-block; margin-top: 1rem; text-decoration: none; color: inherit;">
-      <i class="fab fa-youtube" style="font-size: 1.8rem; color: #E4405F;"></i>
-    </a>
+            <!-- Sección del Código de Acceso -->
+            <div class="access-section" id="accessSection">
+                <div class="success-icon">✓</div>
+                <h3>¡Gracias por completar el cuestionario!</h3>
+                <p>Copia tu codigo de acceso:</p>
+
+                <div class="code-input-group">
+                    <p style="margin-bottom: 1rem;"><strong>Ingresa el código para acceder:</strong></p>
+                    <input 
+                        type="text" 
+                        class="code-input" 
+                        id="codeInput" 
+                        placeholder="CÓDIGO"
+                        maxlength="20"
+                    >
+                </div>
+
+                <div class="error-message" id="errorMessage">
+                    ❌ Código incorrecto. Por favor, verifica e intenta nuevamente.
+                </div>
+
+                <button class="btn" onclick="verifyCode()">
+                    🚀 Acceder al Sitio
+                </button>
+                <button class="btn btn-secondary" onclick="goBack()">
+                    ← Volver al Cuestionario
+                </button>
+            </div>
         </div>
-    </footer>
-    <!-- Botón flotante de contacto -->
-<div class="contact-float" id="contactFloat">
-  <i class="fas fa-envelope"></i>
-</div>
+    </div>
 
-<!-- Formulario flotante oculto -->
-<div class="contact-form-popup" id="contactForm">
-  <h3>Contáctanos</h3>
-  <iframe 
-    src="https://docs.google.com/forms/d/e/1FAIpQLScRV08lvRSK0aUV3jbXaUg0UKyb2we9JEC6KfrVfuijvZt3bA/viewform?embedded=true"
-    width="100%" 
-    height="500" 
-    frameborder="0" 
-    marginheight="0" 
-    marginwidth="0"
-    style="border-radius: 10px;">
-    Cargando…
-  </iframe>
-</div>
+    <script>
+        // Código de acceso válido (puedes cambiarlo)
+        const VALID_CODE = 'SABERES2025';
+        
+        // Mostrar sección de código de acceso
+        function showAccessCode() {
+            document.getElementById('questionnaireSection').classList.add('hidden');
+            document.getElementById('accessSection').classList.add('active');
+        }
 
+        // Volver al cuestionario
+        function goBack() {
+            document.getElementById('accessSection').classList.remove('active');
+            document.getElementById('questionnaireSection').classList.remove('hidden');
+        }
+
+        // Verificar código de acceso
+        function verifyCode() {
+            const input = document.getElementById('codeInput');
+            const errorMessage = document.getElementById('errorMessage');
+            const enteredCode = input.value.trim().toUpperCase();
+
+            if (enteredCode === VALID_CODE) {
+                // Guardar en localStorage que el usuario tiene acceso
+                localStorage.setItem('accessGranted', 'true');
+                localStorage.setItem('accessDate', new Date().toISOString());
+                
+                // Redirigir al sitio principal
+                window.location.href = 'inicio.html';
+            } else {
+                // Mostrar mensaje de error
+                errorMessage.classList.add('show');
+                input.value = '';
+                input.focus();
+                
+                // Ocultar mensaje después de 3 segundos
+                setTimeout(() => {
+                    errorMessage.classList.remove('show');
+                }, 3000);
+            }
+        }
+
+        // Permitir envío con Enter
+        document.getElementById('codeInput')?.addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                verifyCode();
+            }
+        });
+
+        // Verificar si ya tiene acceso al cargar la página
+        window.addEventListener('DOMContentLoaded', function() {
+            if (localStorage.getItem('accessGranted') === 'true') {
+                // Si ya tiene acceso, redirigir directamente
+                window.location.href = 'inicio.html';
+            }
+        });
+    </script>
 </body>
 </html>

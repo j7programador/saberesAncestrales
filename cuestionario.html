@@ -266,10 +266,10 @@
         }
 
         /* Enhanced Hero Section */
-        .hero {
+        /**.hero {
             text-align: center;
-            background: linear-gradient(135deg, rgba(46, 204, 113, 0.5), rgba(39, 174, 96, 0.1)),
-                        url('huertaEscolar.jpeg');
+            background: linear-gradient(135deg, rgba(46, 204, 113, 0.9), rgba(39, 174, 96, 0.9)), 
+                        url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 600"><rect fill="%23e8f5e8" width="1200" height="600"/><path fill="%23c8e6c9" d="M0,100 Q300,50 600,100 T1200,100 L1200,600 L0,600 Z"/></svg>');
             color: white;
             padding: 6rem 2rem 4rem;
             margin: 2rem 0;
@@ -289,7 +289,44 @@
             height: 200%;
             background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, transparent 70%);
             animation: heroShimmer 6s ease-in-out infinite;
+        }**/
+
+        .hero {
+            text-align: center;
+            background: linear-gradient(135deg, rgba(46, 204, 113, 0.5), rgba(39, 174, 96, 0.1)),
+                        url('saberes_ancestrales.jpeg');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            opacity: 0.97;
+            color: white;
+            padding: 6rem 2rem 4rem;
+            margin: 2rem 0;
+            border-radius: var(--border-radius);
+            box-shadow: var(--shadow-light);
+            position: relative;
+            overflow: hidden;
+            animation: fadeInUp 1s ease-out;
         }
+
+        .hero::before {
+           content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, transparent 70%);
+            animation: heroShimmer 6s ease-in-out infinite;
+        }
+
+        .hero h1,
+        .hero p,
+        .hero .cta-button {
+            position: relative;
+            z-index: 1; /* aseguran que el texto y botón estén sobre la imagen */
+        }
+
 
         @keyframes heroShimmer {
             0%, 100% { transform: translateX(-20px) translateY(-20px) rotate(0deg); }
@@ -979,6 +1016,102 @@
         .plant-card, .cta-button, .story-card {
             will-change: transform, opacity;
         }
+
+        /* ===== Contacto flotante ===== */
+        .contact-float {
+        position: fixed;
+        right: 25px;
+        bottom: 25px;
+        background: var(--primary-green);
+        color: white;
+        width: 60px;
+        height: 60px;
+        border-radius: 50%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        font-size: 1.8rem;
+        box-shadow: var(--shadow-hover);
+        cursor: pointer;
+        transition: transform 0.3s ease, 0.3s ease;
+        z-index: 2000;
+        }
+
+        .contact-float:hover {
+        transform: scale(1.1);
+        background: var(--secondary-green);
+        }
+
+        /* ===== Formulario emergente ===== */
+        .contact-form-popup {
+        position: fixed;
+        right: 30px;
+        bottom: 100px;
+        width: 400px;
+        background: var(--bg-primary);
+        box-shadow: var(--shadow-hover);
+        border-radius: var(--border-radius);
+        padding: 1.5rem;
+        transform: translateY(20px);
+        opacity: 0;
+        pointer-events: none;
+        transition: all 0.4s ease;
+        z-index: 1999;
+        }
+
+        .contact-form-popup.show {
+        opacity: 1;
+        transform: translateY(0);
+        pointer-events: auto;
+        }
+
+        .contact-form-popup h3 {
+        margin-bottom: 1rem;
+        color: var(--primary-green);
+        text-align: center;
+        }
+
+        .contact-form-popup label {
+        font-weight: bold;
+        font-size: 0.9rem;
+        color: var(--text-primary);
+        }
+
+        .contact-form-popup input,
+        .contact-form-popup textarea {
+        width: 100%;
+        padding: 0.6rem;
+        margin-top: 0.3rem;
+        margin-bottom: 1rem;
+        border: 2px solid var(--primary-green);
+        border-radius: 8px;
+        background: var(--bg-secondary);
+        color: var(--text-primary);
+        outline: none;
+        transition: border-color 0.3s;
+        }
+
+        .contact-form-popup input:focus,
+        .contact-form-popup textarea:focus {
+        border-color: var(--secondary-green);
+        }
+
+        .contact-form-popup button {
+        background: linear-gradient(45deg, var(--primary-green), var(--secondary-green));
+        color: white;
+        border: none;
+        padding: 0.7rem 1.5rem;
+        border-radius: 25px;
+        cursor: pointer;
+        font-weight: bold;
+        width: 100%;
+        transition: transform 0.2s ease;
+        }
+
+        .contact-form-popup button:hover {
+        transform: scale(1.05);
+        }
+
     </style>
     <script>
         // Enhanced navigation functionality
@@ -1051,6 +1184,7 @@
         
         // Theme toggle functionality
         function toggleTheme() {
+            console.log("Hola Mundo");
             const body = document.body;
             const themeToggle = document.querySelector('.theme-toggle');
             const currentTheme = body.getAttribute('data-theme');
@@ -1065,6 +1199,8 @@
                 localStorage.setItem('theme', 'dark');
             }
         }
+
+        
         
         // Scroll progress indicator
         function updateScrollProgress() {
@@ -1189,6 +1325,24 @@
                 timeout = setTimeout(later, wait);
             };
         }
+
+                document.addEventListener("DOMContentLoaded", function () {
+    const contactBtn = document.getElementById("contactFloat");
+    const contactForm = document.getElementById("contactForm");
+
+    contactBtn.addEventListener("click", function () {
+      contactForm.classList.toggle("show");
+    });
+
+    const form = document.getElementById("contactFormInner");
+    form.addEventListener("submit", function (e) {
+      e.preventDefault();
+      alert("¡Gracias por tu mensaje! Nos pondremos en contacto pronto.");
+      contactForm.classList.remove("show");
+      form.reset();
+    });
+  });
+
         
         // Apply debouncing to scroll handler
         window.addEventListener('scroll', debounce(updateScrollProgress, 10));
@@ -1205,16 +1359,16 @@
 
     <header>
         <div class="header-content">
-            <a href="index.html" class="logo">Saberes Ancestrales</a>
+            <a href="#inicio" class="logo" onclick="showSection('inicio')">Saberes Ancestrales</a>
             <nav>
                 <ul>
-                    <li><a href="inicio.html" class="nav-link">Inicio</a></li>
-                    <li><a href="#museo" onclick="showSection('museo')" class="nav-link active">Plantas</a></li>
+                     <li><a href="inicio.html" class="nav-link">Inicio</a></li>
+                    <li><a href="museo.html" class="nav-link">Plantas</a></li>
                     <li><a href="historiasOrales.html" class="nav-link">Historias</a></li>
-                    <li><a href="experiencias.html" class="nav-link">Experiencias Estudiantiles</a></li>
+                    <li><a href="experiencias.html" class="nav-link">Experiencias</a></li>
                     <li><a href="juegos.html" class="nav-link">Juegos</a></li>
                     <li><a href="videos.html" class="nav-link">Videos</a></li>
-                    <li><a href="cuestionario.html" class="nav-link">Tu conocimiento nos importa</a></li>
+                    <li><a href="cuestionario.html" class="nav-link active">Tu conocimeinto nos importa</a></li>
                     <li><button class="theme-toggle" onclick="toggleTheme()">🌙</button></li>
                 </ul>
             </nav>
@@ -1222,208 +1376,43 @@
     </header>
 
     <main>
-        <!-- Museo de Plantas -->
-        <section id="museo" class="section active">
-                          
-                <div class="hero fade-in-on-scroll">
-                    <h1>Museo Digital de Plantas Medicinales</h1>
-                    <p>Explora nuestra colección de plantas medicinales del Caribe colombiano, documentadas con el conocimiento ancestral de nuestras comunidades.</p>
+        <!-- Landing Page -->
+        <section id="inicio" class="section active">
+            <div class="hero fade-in-on-scroll">
+                <h1>📜 Comparte tu experiencia en este lugar de saberes</h1>
+                <h2>Completa los siguientes formularios para ser parte de nuestro proyecto educativo.</h2>
+            </div>
+            
+            <div class="container">
+                 <div class="fade-in-on-scroll" style="background: var(--bg-primary); padding: 2rem; border-radius: var(--border-radius); margin: 3rem 0; box-shadow: var(--shadow-light);">
+                   <h2>📜 Queremos conocer tu experiencia en nuestro sitio web</h2>
+                   <p></p>
+                   <iframe src="https://docs.google.com/forms/d/e/1FAIpQLSe3MpRq_Vtxve3gp4wJ54BgiJ-zVrUWdsMnTqiSEdXgHa7QYw/viewform?embedded=true"
+                        width="100%"
+                        height="900"
+                        frameborder="0"
+                        marginheight="0"
+                        marginwidth="0"
+                        style="border-radius: 15px; box-shadow: 0 5px 20px rgba(0,0,0,0.1); background: var(--bg-primary);">
+                    Cargando…
+                </iframe>
                 </div>
-                <div class="container">
-                                        <div class="search-container fade-in-on-scroll">
-                        <div class="search-bar">
-                            <input type="text" placeholder="Buscar plantas por nombre, uso medicinal o síntoma..." id="plantSearch">
-                            <button class="search-button" onclick="searchPlants()">🔍</button>
-                        </div>
-                    </div>
-                    
-                    <div class="plant-gallery fade-in-on-scroll">
-                        <div class="plant-card">
-                            <div class="plant-image"><img src="hierbabuena.png" alt=""></div>
-                            <div class="plant-info">
-                                <h4>Hierbabuena (Mentha spicata)</h4>
-                                <p><strong>Uso tradicional:</strong> Problemas digestivos, dolor de estómago, náuseas</p>
-                                <p><strong>Preparación:</strong> Infusión de hojas frescas</p>
-                                <p><strong>Región:</strong> Costa Atlántica</p>
-                            </div>
-                        </div>
-
-                        <div class="plant-card">
-                        <div class="plant-image"><img src="sabila.png" alt="Sábila"></div>
-                        <div class="plant-info">
-                            <h4>Sábila</h4>
-                            <p><strong>Uso tradicional:</strong> Tratamiento de heridas, quemaduras, irritaciones de la piel y como laxante para el estreñimiento.</p>
-                            <p><strong>Preparación:</strong> El gel del interior de la hoja se aplica directamente sobre la piel. Para uso interno, se usan preparados de acíbar.</p>
-                            <p><strong>Región:</strong> Andina</p>
-                        </div>
-                    </div>
-
-                    <div class="plant-card">
-                        <div class="plant-image"><img src="manzanilla.png" alt="Manzanilla"></div>
-                        <div class="plant-info">
-                            <h4>Manzanilla</h4>
-                            <p><strong>Uso tradicional:</strong> Digestivo, carminativo (alivia gases), antiespasmódico, sedante y antiinflamatorio.</p>
-                            <p><strong>Preparación:</strong> Se prepara en infusión (té): se añade 1 cucharada de flores secas a una taza de agua hirviendo, se tapa, se deja reposar 3-4 minutos y se cuela.</p>
-                            <p><strong>Región:</strong> Andina</p>
-                        </div>
-                    </div>
-
-                    <div class="plant-card">
-                        <div class="plant-image"><img src="toronjil.png" alt="Toronjil"></div>
-                        <div class="plant-info">
-                            <h4>Toronjil</h4>
-                            <p><strong>Uso tradicional:</strong> Tratar problemas digestivos y tiene propiedades sedantes y calmantes, ayudando a conciliar el sueño y a calmar los nervios.</p>
-                            <p><strong>Preparación:</strong> Se utiliza en infusión o té, hirviendo sus hojas en agua.</p>
-                            <p><strong>Región:</strong> Andina</p>
-                        </div>
-                    </div>
-
-                    <div class="plant-card">
-                        <div class="plant-image"><img src="jengibre.png" alt="Jengibre"></div>
-                        <div class="plant-info">
-                            <h4>Jengibre</h4>
-                            <p><strong>Uso tradicional:</strong> Aliviar náuseas, vómitos, resfriados y como antiinflamatorio.</p>
-                            <p><strong>Preparación:</strong> Se ralla o se corta en rodajas el rizoma (raíz), y se consume en infusiones o se agrega a comidas y bebidas.</p>
-                            <p><strong>Región:</strong> Pacífica</p>
-                        </div>
-                    </div>
-
-                    <div class="plant-card">
-                        <div class="plant-image"><img src="limon.png" alt="Limón"></div>
-                        <div class="plant-info">
-                            <h4>Limón</h4>
-                            <p><strong>Uso tradicional:</strong> Antiséptico, aliviar síntomas de gripes y resfriados, y como digestivo.</p>
-                            <p><strong>Preparación:</strong> Se utiliza el jugo del fruto en bebidas (agua de panela, limonada), o la cáscara/hojas en infusiones.</p>
-                            <p><strong>Región:</strong> Caribe</p>
-                        </div>
-                    </div>
-
-                    <div class="plant-card">
-                        <div class="plant-image"><img src="oregano.png" alt="Orégano"></div>
-                        <div class="plant-info">
-                            <h4>Orégano</h4>
-                            <p><strong>Uso tradicional:</strong> Expectorante para problemas respiratorios (tos, bronquitis), y con acción sedante para el insomnio.</p>
-                            <p><strong>Preparación:</strong> Se prepara como té o infusión con una cucharada de hojas frescas o secas en agua hirviendo. También como aceite esencial.</p>
-                            <p><strong>Región:</strong> Caribe</p>
-                        </div>
-                    </div>
-
-                    <div class="plant-card">
-                        <div class="plant-image"><img src="ruda.png" alt="Ruda"></div>
-                        <div class="plant-info">
-                            <h4>Ruda</h4>
-                            <p><strong>Uso tradicional:</strong> Emenagogo (regula menstruación), antiespasmódica, para problemas de la piel y para fumigaciones.</p>
-                            <p><strong>Preparación:</strong> Las hojas se usan en decocciones (cocidas), tés o maceradas en alcohol para fricciones externas.</p>
-                            <p><strong>Región:</strong> Andina</p>
-                        </div>
-                    </div>
-
-                    <div class="plant-card">
-                        <div class="plant-image"><img src="jamaica.png" alt="Flor de Jamaica"></div>
-                        <div class="plant-info">
-                            <h4>Flor de Jamaica</h4>
-                            <p><strong>Uso tradicional:</strong> Diurético natural, para controlar la presión arterial, y por su alto contenido de antioxidantes.</p>
-                            <p><strong>Preparación:</strong> Se prepara en infusión o "agua de jamaica" hirviendo los cálices secos en agua, se cuela y se endulza al gusto. Se puede tomar fría o caliente.</p>
-                            <p><strong>Región:</strong> Caribe</p>
-                        </div>
-                    </div>
-
-                    <div class="plant-card">
-                        <div class="plant-image"><img src="raton.png" alt="Matarraton"></div>
-                        <div class="plant-info">
-                            <h4>Matarraton</h4>
-                            <p><strong>Uso tradicional:</strong> Tratar afecciones dérmicas (salpullidos, granos) y para bajar la fiebre.</p>
-                            <p><strong>Preparación:</strong> Se usan las hojas en la preparación de emplastos o baños para la piel, o en infusiones.</p>
-                            <p><strong>Región:</strong> Orinoquía</p>
-                        </div>
-                    </div>
-
-                    <div class="plant-card">
-                        <div class="plant-image"><img src="romero.png" alt="Romero"></div>
-                        <div class="plant-info">
-                            <h4>Romero</h4>
-                            <p><strong>Uso tradicional:</strong> Estimulante, para el crecimiento del cabello, en dolores de cabeza y como antioxidante.</p>
-                            <p><strong>Preparación:</strong> Se utiliza en infusiones o decocciones, en aceite esencial para masajes o incorporado en comidas.</p>
-                            <p><strong>Región:</strong> Andina</p>
-                        </div>
-                    </div>
-
-                    <div class="plant-card">
-                        <div class="plant-image"><img src="cannabis.png" alt="Cannabis"></div>
-                        <div class="plant-info">
-                            <h4>Cannabis</h4>
-                            <p><strong>Uso tradicional:</strong> Aliviar el dolor crónico, controlar náuseas, vómitos, y para tratar síntomas de enfermedades como la esclerosis múltiple.</p>
-                            <p><strong>Preparación:</strong> Se puede consumir fumado, vaporizado, comido (ej. comestibles) o como extracto (aceites, pomadas).</p>
-                            <p><strong>Región:</strong> Andina</p>
-                        </div>
-                    </div>
-
-                    <div class="plant-card">
-                        <div class="plant-image"><img src="eucalipto.png" alt="Eucalipto"></div>
-                        <div class="plant-info">
-                            <h4>Eucalipto</h4>
-                            <p><strong>Uso tradicional:</strong> Principalmente utilizado para tratar afecciones respiratorias (asma, bronquios, resfriados) por su efecto expectorante.</p>
-                            <p><strong>Preparación:</strong> Las hojas se emplean para infusiones (solas o con otras hierbas) o para hacer inhalaciones (vaporizaciones).</p>
-                            <p><strong>Región:</strong> Andina</p>
-                        </div>
-                    </div>
-                        
-                        <div class="plant-card">
-                            <div class="plant-image">🍃</div>
-                            <div class="plant-info">
-                                <h4>Toronjil (Melissa officinalis)</h4>
-                                <p><strong>Uso tradicional:</strong> Nervios, insomnio, dolor de cabeza</p>
-                                <p><strong>Preparación:</strong> Té de hojas secas</p>
-                                <p><strong>Región:</strong> Magdalena</p>
-                            </div>
-                        </div>
-                        
-                        <div class="plant-card">
-                            <div class="plant-image">🌱</div>
-                            <div class="plant-info">
-                                <h4>Malva (Malva sylvestris)</h4>
-                                <p><strong>Uso tradicional:</strong> Inflamaciones, tos, problemas respiratorios</p>
-                                <p><strong>Preparación:</strong> Cocimiento de hojas y flores</p>
-                                <p><strong>Región:</strong> Atlántico</p>
-                            </div>
-                        </div>
-                        
-                        <div class="plant-card">
-                            <div class="plant-image">🌾</div>
-                            <div class="plant-info">
-                                <h4>Sábila (Aloe vera)</h4>
-                                <p><strong>Uso tradicional:</strong> Quemaduras, heridas, problemas de piel</p>
-                                <p><strong>Preparación:</strong> Gel directo de la hoja</p>
-                                <p><strong>Región:</strong> La Guajira</p>
-                            </div>
-                        </div>
-                        
-                        <div class="plant-card">
-                            <div class="plant-image">🌺</div>
-                            <div class="plant-info">
-                                <h4>Caléndula (Calendula officinalis)</h4>
-                                <p><strong>Uso tradicional:</strong> Cicatrización, irritaciones de piel</p>
-                                <p><strong>Preparación:</strong> Ungüento de flores</p>
-                                <p><strong>Región:</strong> Bolívar</p>
-                            </div>
-                        </div>
-                        
-                        <div class="plant-card">
-                            <div class="plant-image">🌿</div>
-                            <div class="plant-info">
-                                <h4>Orégano (Origanum vulgare)</h4>
-                                <p><strong>Uso tradicional:</strong> Tos, gripe, problemas respiratorios</p>
-                                <p><strong>Preparación:</strong> Infusión o jarabe</p>
-                                <p><strong>Región:</strong> Cesar</p>
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <div class="fade-in-on-scroll" style="background: var(--bg-primary); padding: 2rem; border-radius: var(--border-radius); margin: 2rem 0; box-shadow: var(--shadow-light);">
-                        <h3>Importante</h3>
-                        <p><strong>Advertencia:</strong> La información presentada aquí tiene fines educativos y culturales. Siempre consulte con un profesional de la salud antes de usar cualquier planta medicinal. El conocimiento ancestral debe complementar, no reemplazar, la atención médica profesional.</p>
-                    </div>
+            </div>
+            <div class="container">
+                 <div class="fade-in-on-scroll" style="background: var(--bg-primary); padding: 2rem; border-radius: var(--border-radius); margin: 3rem 0; box-shadow: var(--shadow-light);">
+                   <h2>📜 Queremos medir tus conocimientos en saberes ancestrales</h2>
+                   <p></p>
+                   <iframe src="https://docs.google.com/forms/d/e/1FAIpQLSemzqNq7QGzhG9M2KFI_halQxZUddqJMamfm_oHWKhdmUPVEw/viewform?embedded=true"
+                        width="100%"
+                        height="900"
+                        frameborder="0"
+                        marginheight="0"
+                        marginwidth="0"
+                        style="border-radius: 15px; box-shadow: 0 5px 20px rgba(0,0,0,0.1); background: var(--bg-primary);">
+                    Cargando…
+                </iframe>
                 </div>
+            </div>
         </section>
     </main>
 
@@ -1442,5 +1431,25 @@
     </a>
         </div>
     </footer>
+    <!-- Botón flotante de contacto -->
+<div class="contact-float" id="contactFloat">
+  <i class="fas fa-envelope"></i>
+</div>
+
+<!-- Formulario flotante oculto -->
+<div class="contact-form-popup" id="contactForm">
+  <h3>Contáctanos</h3>
+  <iframe 
+    src="https://docs.google.com/forms/d/e/1FAIpQLScRV08lvRSK0aUV3jbXaUg0UKyb2we9JEC6KfrVfuijvZt3bA/viewform?embedded=true"
+    width="100%" 
+    height="500" 
+    frameborder="0" 
+    marginheight="0" 
+    marginwidth="0"
+    style="border-radius: 10px;">
+    Cargando…
+  </iframe>
+</div>
+
 </body>
 </html>
