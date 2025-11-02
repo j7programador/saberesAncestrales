@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Saberes Ancestrales - Plantas Medicinales del Caribe Colombiano</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
     <style>
         :root {
             /* Color variables for easy theming */
@@ -267,8 +268,8 @@
         /* Enhanced Hero Section */
         .hero {
             text-align: center;
-            background: linear-gradient(135deg, rgba(46, 204, 113, 0.9), rgba(39, 174, 96, 0.9)), 
-                        url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 600"><rect fill="%23e8f5e8" width="1200" height="600"/><path fill="%23c8e6c9" d="M0,100 Q300,50 600,100 T1200,100 L1200,600 L0,600 Z"/></svg>');
+            background: linear-gradient(135deg, rgba(46, 204, 113, 0.5), rgba(39, 174, 96, 0.1)),
+                        url('huertaEscolar.jpeg');
             color: white;
             padding: 6rem 2rem 4rem;
             margin: 2rem 0;
@@ -763,6 +764,8 @@
             width: 100%;
             height: 200px;
             background: linear-gradient(135deg, var(--light-blue), #2980b9);
+            /*background: linear-gradient(135deg, rgba(46, 204, 113, 0.5), rgba(39, 174, 96, 0.1)),
+                        url('huertaEscolar.jpeg');*/
             display: flex;
             align-items: center;
             justify-content: center;
@@ -770,6 +773,20 @@
             font-size: 3rem;
             position: relative;
             overflow: hidden;
+        }
+
+        /* imagen responsiva que llena el contenedor sin deformarse */
+        .experience-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;       /* la clave: ajusta y recorta proporcionalmente */
+            object-position: center; /* centra la parte más importante de la foto */
+            transition: transform 0.5s ease;
+        }
+
+        /* efecto de zoom suave al pasar el cursor */
+        .experience-image:hover img {
+            transform: scale(1.05);
         }
 
         .experience-image::before {
@@ -1210,8 +1227,9 @@
                     <li><a href="index.html" class="nav-link">Inicio</a></li>
                     <li><a href="museo.html" class="nav-link">Plantas</a></li>
                     <li><a href="historiasOrales.html" class="nav-link">Historias</a></li>
-                    <li><a href="#experiencias" onclick="showSection('experiencias')" class="nav-link active">Experiencias Estudiantiles</a></li>
+                    <li><a href="#experiencias" onclick="showSection('experiencias')" class="nav-link active">Experiencias</a></li>
                      <li><a href="juegos.html" class="nav-link">Juegos</a></li>
+                     <li><a href="videos.html" class="nav-link">Videos</a></li>
                     <li><button class="theme-toggle" onclick="toggleTheme()">🌙</button></li>
                 </ul>
             </nav>
@@ -1230,24 +1248,24 @@
                 <div class="container">
                 <div class="experience-grid">
                     <div class="experience-card fade-in-on-scroll">
-                        <div class="experience-image">📚</div>
+                        <div class="experience-image"><img src="explicacionhuerta.jpeg" alt=""></div>
                         <div class="experience-content">
                             <h4>Taller de Identificación Botánica</h4>
-                            <p>Estudiantes de 8° grado aprendieron a identificar plantas medicinales comunes en el Caribe colombiano, comparando nombres científicos con nombres tradicionales.</p>
-                            <p><strong>Institución:</strong> IE San José, Cartagena</p>
+                            <p>Estudiantes de 11° grado aprendieron a identificar plantas medicinales comunes en el Caribe colombiano, comparando nombres científicos con nombres tradicionales.</p>
+                            <p><strong>Institución:</strong> IE Juan José Rondón, Barranquilla</p>
                             <p><strong>Participantes:</strong> 25 estudiantes</p>
-                            <p><strong>Fecha:</strong> Marzo 2024</p>
+                            <p><strong>Fecha:</strong> Marzo 2025</p>
                         </div>
                     </div>
                     
                     <div class="experience-card fade-in-on-scroll">
-                        <div class="experience-image">🌱</div>
+                        <div class="experience-image"><img src="huertaEscolar.jpeg" alt=""></div>
                         <div class="experience-content">
                             <h4>Huerto Medicinal Escolar</h4>
                             <p>Creación de un huerto medicinal en la institución donde los estudiantes cultivan y cuidan plantas medicinales tradicionales, aprendiendo sobre su cuidado y usos.</p>
-                            <p><strong>Institución:</strong> Colegio La Esperanza, Barranquilla</p>
-                            <p><strong>Participantes:</strong> 40 estudiantes</p>
-                            <p><strong>Fecha:</strong> Febrero 2024</p>
+                            <p><strong>Institución:</strong> IE Juan José Rondón, Barranquilla</p>
+                            <p><strong>Participantes:</strong> 25 estudiantes</p>
+                            <p><strong>Fecha:</strong> Abril 2025</p>
                         </div>
                     </div>
                     
@@ -1256,9 +1274,9 @@
                         <div class="experience-content">
                             <h4>Encuentro Intergeneracional</h4>
                             <p>Estudiantes de bachillerato entrevistaron a sabedores tradicionales de su comunidad, documentando recetas y historias familiares sobre plantas medicinales.</p>
-                            <p><strong>Institución:</strong> IE Rural de Minca, Santa Marta</p>
-                            <p><strong>Participantes:</strong> 30 estudiantes</p>
-                            <p><strong>Fecha:</strong> Enero 2024</p>
+                            <p><strong>Institución:</strong> IE Juan José Rondón, Barranquilla</p>
+                            <p><strong>Participantes:</strong> 25 estudiantes</p>
+                            <p><strong>Fecha:</strong> Abril 2025</p>
                         </div>
                     </div>
                     
@@ -1267,9 +1285,9 @@
                         <div class="experience-content">
                             <h4>Festival Cultural de Plantas</h4>
                             <p>Los estudiantes organizaron un festival donde presentaron obras de teatro, danzas y exposiciones sobre el uso tradicional de plantas medicinales en sus comunidades.</p>
-                            <p><strong>Institución:</strong> IE Técnica de Turbaco</p>
-                            <p><strong>Participantes:</strong> 120 estudiantes</p>
-                            <p><strong>Fecha:</strong> Abril 2024</p>
+                            <p><strong>Institución:</strong> IE Juan José Rondón, Barranquilla</p>
+                            <p><strong>Participantes:</strong> 25 estudiantes</p>
+                            <p><strong>Fecha:</strong> Abril 2025</p>
                         </div>
                     </div>
                     
@@ -1278,9 +1296,9 @@
                         <div class="experience-content">
                             <h4>Laboratorio de Preparaciones</h4>
                             <p>Taller práctico donde los estudiantes aprendieron a preparar infusiones, ungüentos y jarabes tradicionales bajo supervisión de sabedores locales.</p>
-                            <p><strong>Institución:</strong> IE Nuestra Señora del Carmen, Magangué</p>
-                            <p><strong>Participantes:</strong> 35 estudiantes</p>
-                            <p><strong>Fecha:</strong> Mayo 2024</p>
+                            <p><strong>Institución:</strong> IE Juan José Rondón, Barranquilla</p>
+                            <p><strong>Participantes:</strong> 25 estudiantes</p>
+                            <p><strong>Fecha:</strong> Mayo 2025</p>
                         </div>
                     </div>
                     
@@ -1289,9 +1307,9 @@
                         <div class="experience-content">
                             <h4>Cartilla Digital Comunitaria</h4>
                             <p>Estudiantes de grado 11° crearon una cartilla digital ilustrada con plantas medicinales de su región, incluyendo fotografías, usos y testimonios de abuelos.</p>
-                            <p><strong>Institución:</strong> IE Águeda Gallardo de Villamizar, Valledupar</p>
-                            <p><strong>Participantes:</strong> 20 estudiantes</p>
-                            <p><strong>Fecha:</strong> Junio 2024</p>
+                            <p><strong>Institución:</strong> IE Juan José Rondón, Barranquilla</p>
+                            <p><strong>Participantes:</strong> 25 estudiantes</p>
+                            <p><strong>Fecha:</strong> Junio 2025</p>
                         </div>
                     </div>
                 </div>
@@ -1314,12 +1332,19 @@
         </section>
     </main>
 
-    <footer>
+   <footer>
         <div class="container">
-            <p>&copy; 2024 Saberes Ancestrales del Caribe Colombiano. Proyecto educativo dedicado a la preservación del conocimiento tradicional.</p>
+            <p>&copy; 2025 Saberes Ancestrales del Caribe Colombiano. Proyecto educativo dedicado a la preservación del conocimiento tradicional.</p>
             <p style="margin-top: 1rem; font-size: 0.9rem; opacity: 0.8;">
                 Desarrollado con respeto por nuestras comunidades y en colaboración con sabedores tradicionales del Caribe colombiano.
             </p>
+            <a href="https://www.instagram.com/juanjoserondon.ied?igsh=bnpoanJvM3diZXE5" target="_blank" 
+       style="display: inline-block; margin-top: 1rem; margin-right: 1rem; color: inherit;">
+      <i class="fab fa-instagram" style="font-size: 1.8rem; color: #E4405F;"></i>
+      <a href="https://www.youtube.com/watch?v=gZDw1hNU70Y&list=RDgZDw1hNU70Y&start_radio=1" target="_blank" 
+       style="display: inline-block; margin-top: 1rem; text-decoration: none; color: inherit;">
+      <i class="fab fa-youtube" style="font-size: 1.8rem; color: #E4405F;"></i>
+    </a>
         </div>
     </footer>
 </body>

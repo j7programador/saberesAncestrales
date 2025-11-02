@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Saberes Ancestrales - Plantas Medicinales del Caribe Colombiano</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
     <style>
         :root {
             /* Color variables for easy theming */
@@ -265,7 +266,7 @@
         }
 
         /* Enhanced Hero Section */
-        .hero {
+        /**.hero {
             text-align: center;
             background: linear-gradient(135deg, rgba(46, 204, 113, 0.9), rgba(39, 174, 96, 0.9)), 
                         url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 600"><rect fill="%23e8f5e8" width="1200" height="600"/><path fill="%23c8e6c9" d="M0,100 Q300,50 600,100 T1200,100 L1200,600 L0,600 Z"/></svg>');
@@ -288,7 +289,44 @@
             height: 200%;
             background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, transparent 70%);
             animation: heroShimmer 6s ease-in-out infinite;
+        }**/
+
+        .hero {
+            text-align: center;
+            background: linear-gradient(135deg, rgba(46, 204, 113, 0.5), rgba(39, 174, 96, 0.1)),
+                        url('saberes_ancestrales.jpeg');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            opacity: 0.97;
+            color: white;
+            padding: 6rem 2rem 4rem;
+            margin: 2rem 0;
+            border-radius: var(--border-radius);
+            box-shadow: var(--shadow-light);
+            position: relative;
+            overflow: hidden;
+            animation: fadeInUp 1s ease-out;
         }
+
+        .hero::before {
+           content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, transparent 70%);
+            animation: heroShimmer 6s ease-in-out infinite;
+        }
+
+        .hero h1,
+        .hero p,
+        .hero .cta-button {
+            position: relative;
+            z-index: 1; /* aseguran que el texto y botón estén sobre la imagen */
+        }
+
 
         @keyframes heroShimmer {
             0%, 100% { transform: translateX(-20px) translateY(-20px) rotate(0deg); }
@@ -978,6 +1016,102 @@
         .plant-card, .cta-button, .story-card {
             will-change: transform, opacity;
         }
+
+        /* ===== Contacto flotante ===== */
+        .contact-float {
+        position: fixed;
+        right: 25px;
+        bottom: 25px;
+        background: var(--primary-green);
+        color: white;
+        width: 60px;
+        height: 60px;
+        border-radius: 50%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        font-size: 1.8rem;
+        box-shadow: var(--shadow-hover);
+        cursor: pointer;
+        transition: transform 0.3s ease, 0.3s ease;
+        z-index: 2000;
+        }
+
+        .contact-float:hover {
+        transform: scale(1.1);
+        background: var(--secondary-green);
+        }
+
+        /* ===== Formulario emergente ===== */
+        .contact-form-popup {
+        position: fixed;
+        right: 30px;
+        bottom: 100px;
+        width: 400px;
+        background: var(--bg-primary);
+        box-shadow: var(--shadow-hover);
+        border-radius: var(--border-radius);
+        padding: 1.5rem;
+        transform: translateY(20px);
+        opacity: 0;
+        pointer-events: none;
+        transition: all 0.4s ease;
+        z-index: 1999;
+        }
+
+        .contact-form-popup.show {
+        opacity: 1;
+        transform: translateY(0);
+        pointer-events: auto;
+        }
+
+        .contact-form-popup h3 {
+        margin-bottom: 1rem;
+        color: var(--primary-green);
+        text-align: center;
+        }
+
+        .contact-form-popup label {
+        font-weight: bold;
+        font-size: 0.9rem;
+        color: var(--text-primary);
+        }
+
+        .contact-form-popup input,
+        .contact-form-popup textarea {
+        width: 100%;
+        padding: 0.6rem;
+        margin-top: 0.3rem;
+        margin-bottom: 1rem;
+        border: 2px solid var(--primary-green);
+        border-radius: 8px;
+        background: var(--bg-secondary);
+        color: var(--text-primary);
+        outline: none;
+        transition: border-color 0.3s;
+        }
+
+        .contact-form-popup input:focus,
+        .contact-form-popup textarea:focus {
+        border-color: var(--secondary-green);
+        }
+
+        .contact-form-popup button {
+        background: linear-gradient(45deg, var(--primary-green), var(--secondary-green));
+        color: white;
+        border: none;
+        padding: 0.7rem 1.5rem;
+        border-radius: 25px;
+        cursor: pointer;
+        font-weight: bold;
+        width: 100%;
+        transition: transform 0.2s ease;
+        }
+
+        .contact-form-popup button:hover {
+        transform: scale(1.05);
+        }
+
     </style>
     <script>
         // Enhanced navigation functionality
@@ -1191,6 +1325,24 @@
                 timeout = setTimeout(later, wait);
             };
         }
+
+                document.addEventListener("DOMContentLoaded", function () {
+    const contactBtn = document.getElementById("contactFloat");
+    const contactForm = document.getElementById("contactForm");
+
+    contactBtn.addEventListener("click", function () {
+      contactForm.classList.toggle("show");
+    });
+
+    const form = document.getElementById("contactFormInner");
+    form.addEventListener("submit", function (e) {
+      e.preventDefault();
+      alert("¡Gracias por tu mensaje! Nos pondremos en contacto pronto.");
+      contactForm.classList.remove("show");
+      form.reset();
+    });
+  });
+
         
         // Apply debouncing to scroll handler
         window.addEventListener('scroll', debounce(updateScrollProgress, 10));
@@ -1210,11 +1362,12 @@
             <a href="#inicio" class="logo" onclick="showSection('inicio')">Saberes Ancestrales</a>
             <nav>
                 <ul>
-                    <li><a href="#inicio" onclick="showSection('inicio')" class="nav-link active">Inicio</a></li>
-                    <li><a href="museo.html"  class="nav-link">Plantas</a></li>
-                    <li><a href="historiasOrales.html">Historias</a></li>
-                    <li><a href="experiencias.html" class="nav-link">Experiencias Estudiantiles</a></li>
+                     <li><a href="index.html" class="nav-link active">Inicio</a></li>
+                    <li><a href="museo.html" class="nav-link">Plantas</a></li>
+                    <li><a href="historiasOrales.html" class="nav-link">Historias</a></li>
+                    <li><a href="experiencias.html" class="nav-link">Experiencias</a></li>
                     <li><a href="juegos.html" class="nav-link">Juegos</a></li>
+                    <li><a href="videos.html" class="nav-link">Videos</a></li>
                     <li><button class="theme-toggle" onclick="toggleTheme()">🌙</button></li>
                 </ul>
             </nav>
@@ -1226,7 +1379,8 @@
         <section id="inicio" class="section active">
             <div class="hero fade-in-on-scroll">
                 <h1>Saberes Ancestrales del Caribe Colombiano</h1>
-                <p>Preservando y compartiendo el conocimiento tradicional sobre plantas medicinales de nuestras comunidades ancestrales</p>
+                <h2>Bienvenidos a este espacio educativo</h2>
+                <p>Donde podrás descubrir cómo la naturaleza nos habla, nos sana y nos conecta con nuestras raíces.</p>
                 <a href="museo.html" class="cta-button">Explorar el Museo</a>
             </div>
             
@@ -1272,17 +1426,59 @@
                         <li> Producir un recurso digital sobre el uso de productos naturales basado en los saberes ancestrales.</li>
                     </ul>
                 </div>
+
+                 <div class="fade-in-on-scroll" style="background: var(--bg-primary); padding: 2rem; border-radius: var(--border-radius); margin: 3rem 0; box-shadow: var(--shadow-light);">
+                   <h2>📜 Comparte tu experiencia en este lugar de saberes</h2>
+                   <p>Queremos conocer tu experiencia en nuestro sitio web
+                    Completa el siguiente formulario para ser parte de nuestro proyecto educativo.</p>
+                   <iframe src="https://docs.google.com/forms/d/e/1FAIpQLSe3MpRq_Vtxve3gp4wJ54BgiJ-zVrUWdsMnTqiSEdXgHa7QYw/viewform?embedded=true"
+                        width="100%"
+                        height="900"
+                        frameborder="0"
+                        marginheight="0"
+                        marginwidth="0"
+                        style="border-radius: 15px; box-shadow: 0 5px 20px rgba(0,0,0,0.1); background: var(--bg-primary);">
+                    Cargando…
+                </iframe>
+                </div>
             </div>
         </section>
     </main>
 
     <footer>
         <div class="container">
-            <p>&copy; 2024 Saberes Ancestrales del Caribe Colombiano. Proyecto educativo dedicado a la preservación del conocimiento tradicional.</p>
+            <p>&copy; 2025 Saberes Ancestrales del Caribe Colombiano. Proyecto educativo dedicado a la preservación del conocimiento tradicional.</p>
             <p style="margin-top: 1rem; font-size: 0.9rem; opacity: 0.8;">
                 Desarrollado con respeto por nuestras comunidades y en colaboración con sabedores tradicionales del Caribe colombiano.
             </p>
+            <a href="https://www.instagram.com/juanjoserondon.ied?igsh=bnpoanJvM3diZXE5" target="_blank" 
+       style="display: inline-block; margin-top: 1rem; margin-right: 1rem; color: inherit;">
+      <i class="fab fa-instagram" style="font-size: 1.8rem; color: #E4405F;"></i>
+      <a href="https://www.youtube.com/watch?v=gZDw1hNU70Y&list=RDgZDw1hNU70Y&start_radio=1" target="_blank" 
+       style="display: inline-block; margin-top: 1rem; text-decoration: none; color: inherit;">
+      <i class="fab fa-youtube" style="font-size: 1.8rem; color: #E4405F;"></i>
+    </a>
         </div>
     </footer>
+    <!-- Botón flotante de contacto -->
+<div class="contact-float" id="contactFloat">
+  <i class="fas fa-envelope"></i>
+</div>
+
+<!-- Formulario flotante oculto -->
+<div class="contact-form-popup" id="contactForm">
+  <h3>Contáctanos</h3>
+  <iframe 
+    src="https://docs.google.com/forms/d/e/1FAIpQLScRV08lvRSK0aUV3jbXaUg0UKyb2we9JEC6KfrVfuijvZt3bA/viewform?embedded=true"
+    width="100%" 
+    height="500" 
+    frameborder="0" 
+    marginheight="0" 
+    marginwidth="0"
+    style="border-radius: 10px;">
+    Cargando…
+  </iframe>
+</div>
+
 </body>
 </html>
