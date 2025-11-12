@@ -196,6 +196,7 @@
             transition: background-color 0.2s ease, color 0.2s ease, transform 0.2s ease;
             display: inline-block;
             position: relative;
+            font-size: 0.9rem;
         }
 
         nav a:hover,
@@ -221,7 +222,7 @@
         }
 
         /* Botón de modo oscuro minimalista */
-        .theme-toggle {
+        .theme-toggle, .style-toggle {
             background: var(--blur-bg);
             border: 2px solid rgba(255,255,255,0.3);
             border-radius: 25px;
@@ -232,10 +233,23 @@
             transition: background-color 0.2s ease-in-out;
         }
 
-        .theme-toggle:hover {
+        .theme-toggle:hover, .style-toggle:hover {
             background: rgba(255,255,255,0.2);
         }
 
+        .style-toggle {
+            margin-left: 0.5rem;
+        }
+
+        [data-theme="vintage"] .theme-toggle,
+        [data-theme="vintage"] .style-toggle {
+            border: 2px solid #8b4513;
+        }
+
+        [data-theme="vintage"] .theme-toggle:hover,
+        [data-theme="vintage"] .style-toggle:hover {
+            background: rgba(139, 69, 19, 0.2);
+        }
 
 
         nav ul {
@@ -979,6 +993,337 @@
         .plant-card, .cta-button, .story-card {
             will-change: transform, opacity;
         }
+
+         [data-theme="vintage"] {
+            --primary-green: #5d4e37;
+            --secondary-green: #6b5d4f;
+            --accent-red: #8b0000;
+            --dark-blue: #3e2723;
+            --light-blue: #6d4c41;
+            --text-primary: #3e2723;
+            --text-secondary: #5d4e37;
+            --bg-primary: #f5e6d3;
+            --bg-secondary: #e8d5bc;
+            --bg-gradient: linear-gradient(135deg, #f5e6d3 0%, #d4c4a8 100%);
+            --shadow-light: 0 8px 25px rgba(62, 39, 35, 0.3);
+            --shadow-hover: 0 15px 40px rgba(62, 39, 35, 0.4);
+            --blur-bg: rgba(245, 230, 211, 0.95);
+            --border-radius: 5px;
+        }
+
+        [data-theme="vintage"] body {
+            font-family: 'Garamond', 'Palatino Linotype', 'Book Antiqua', serif;
+            background-image: 
+                repeating-linear-gradient(
+                    0deg,
+                    transparent,
+                    transparent 2px,
+                    rgba(139, 69, 19, 0.03) 2px,
+                    rgba(139, 69, 19, 0.03) 4px
+                );
+        }
+
+        [data-theme="vintage"] .card,
+        [data-theme="vintage"] .plant-card,
+        [data-theme="vintage"] .story-card,
+        [data-theme="vintage"] .experience-card {
+            border: 3px double #8b4513;
+            background: 
+                linear-gradient(rgba(245, 230, 211, 0.95), rgba(245, 230, 211, 0.95)),
+                repeating-linear-gradient(
+                    45deg,
+                    transparent,
+                    transparent 10px,
+                    rgba(139, 69, 19, 0.02) 10px,
+                    rgba(139, 69, 19, 0.02) 20px
+                );
+        }
+
+        [data-theme="vintage"] .hero {
+            background: 
+                linear-gradient(135deg, rgba(139, 69, 19, 0.7), rgba(101, 67, 33, 0.7)),
+                linear-gradient(to bottom, #8b7355, #a0826d);
+            border: 5px solid #8b4513;
+            box-shadow: inset 0 0 50px rgba(0, 0, 0, 0.3);
+        }
+
+        [data-theme="vintage"] .hero h1 {
+            font-family: 'Cinzel', 'Playfair Display', serif;
+            text-shadow: 3px 3px 6px rgba(0, 0, 0, 0.5);
+            letter-spacing: 2px;
+        }
+
+        [data-theme="vintage"] h1,
+        [data-theme="vintage"] h2,
+        [data-theme="vintage"] h3,
+        [data-theme="vintage"] h4 {
+            font-family: 'Cinzel', 'Playfair Display', serif;
+            letter-spacing: 1px;
+        }
+
+        [data-theme="vintage"] h2::before,
+        [data-theme="vintage"] h2::after {
+            content: "❦";
+            margin: 0 1rem;
+            color: #8b4513;
+        }
+
+        [data-theme="vintage"] .cta-button {
+            background: linear-gradient(45deg, #8b0000, #5d0000);
+            border: 2px solid #4a0000;
+            box-shadow: 0 4px 15px rgba(139, 0, 0, 0.4);
+            font-family: 'Cinzel', serif;
+            letter-spacing: 1px;
+        }
+
+        [data-theme="vintage"] header {
+            background: rgba(245, 230, 211, 0.98);
+            border-bottom: 3px solid #8b4513;
+            box-shadow: 0 2px 10px rgba(62, 39, 35, 0.3);
+        }
+
+        [data-theme="vintage"] .logo::before {
+            content: "🌿";
+            filter: sepia(0.8) hue-rotate(-10deg);
+        }
+
+        [data-theme="vintage"] nav a {
+            font-family: 'Cinzel', serif;
+            border: 1px solid transparent;
+        }
+
+        [data-theme="vintage"] nav a:hover {
+            background-color: rgba(139, 69, 19, 0.15);
+            border: 1px solid #8b4513;
+        }
+
+        [data-theme="vintage"] nav a.active {
+            background-color: rgba(139, 69, 19, 0.25);
+            border: 1px solid #8b4513;
+        }
+
+        [data-theme="vintage"] .card::before {
+            background: linear-gradient(90deg, #8b4513, #6b5d4f);
+        }
+
+        [data-theme="vintage"] footer {
+            background: #3e2723;
+            border-top: 3px solid #8b4513;
+        }
+
+        [data-theme="vintage"] footer::before {
+            background: linear-gradient(90deg, #8b4513, #6b5d4f, #8b0000);
+        }
+
+        /* Avatar del sabedor ancestral */
+        .ancestor-guide {
+            position: fixed;
+            bottom: 100px;
+            left: 30px;
+            z-index: 2500;
+            animation: fadeInSlide 0.8s ease-out;
+        }
+
+        .ancestor-guide.hidden {
+            animation: fadeOutSlide 0.5s ease-in forwards;
+        }
+
+        @keyframes fadeInSlide {
+            from {
+                opacity: 0;
+                transform: translateX(-100px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        @keyframes fadeOutSlide {
+            to {
+                opacity: 0;
+                transform: translateX(-100px);
+            }
+        }
+
+        .avatar-container {
+            position: relative;
+            display: flex;
+            align-items: flex-end;
+            gap: 1rem;
+        }
+
+        .ancestor-avatar {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #8b4513, #654321);
+            border: 4px solid #d4a574;
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.4);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 4rem;
+            position: relative;
+            overflow: hidden;
+            animation: gentleBounce 3s ease-in-out infinite;
+        }
+
+        @keyframes gentleBounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+
+        .ancestor-avatar::before {
+            content: '👴🏽';
+            position: relative;
+            z-index: 1;
+            filter: drop-shadow(2px 2px 4px rgba(0, 0, 0, 0.3));
+        }
+
+        .ancestor-avatar::after {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(255, 215, 0, 0.2) 0%, transparent 70%);
+            animation: glow 2s ease-in-out infinite;
+        }
+
+        @keyframes glow {
+            0%, 100% { opacity: 0.5; }
+            50% { opacity: 1; }
+        }
+
+        .speech-bubble {
+            background: var(--bg-primary);
+            border: 3px solid var(--primary-green);
+            border-radius: 20px;
+            padding: 1.5rem;
+            max-width: 350px;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
+            position: relative;
+            animation: bubblePop 0.4s ease-out 0.5s backwards;
+        }
+
+        @keyframes bubblePop {
+            0% {
+                transform: scale(0);
+                opacity: 0;
+            }
+            50% {
+                transform: scale(1.05);
+            }
+            100% {
+                transform: scale(1);
+                opacity: 1;
+            }
+        }
+
+        .speech-bubble::before {
+            content: '';
+            position: absolute;
+            bottom: 20px;
+            left: -15px;
+            width: 0;
+            height: 0;
+            border-style: solid;
+            border-width: 15px 15px 15px 0;
+            border-color: transparent var(--primary-green) transparent transparent;
+        }
+
+        .speech-bubble::after {
+            content: '';
+            position: absolute;
+            bottom: 23px;
+            left: -9px;
+            width: 0;
+            height: 0;
+            border-style: solid;
+            border-width: 12px 12px 12px 0;
+            border-color: transparent var(--bg-primary) transparent transparent;
+        }
+
+        .speech-bubble h4 {
+            color: var(--primary-green);
+            font-size: 1.1rem;
+            margin-bottom: 0.5rem;
+            font-family: 'Cinzel', serif;
+        }
+
+        .speech-bubble p {
+            color: var(--text-primary);
+            font-size: 0.95rem;
+            line-height: 1.5;
+            margin: 0;
+        }
+
+        [data-theme="vintage"] .ancestor-avatar {
+            border-color: #8b4513;
+        }
+
+        [data-theme="vintage"] .speech-bubble {
+            border-color: #8b4513;
+            background: rgba(245, 230, 211, 0.98);
+        }
+
+        [data-theme="vintage"] .speech-bubble::before {
+            border-color: transparent #8b4513 transparent transparent;
+        }
+
+        [data-theme="vintage"] .speech-bubble::after {
+            border-color: transparent rgba(245, 230, 211, 0.98) transparent transparent;
+        }
+
+        [data-theme="dark"] .speech-bubble {
+            background: var(--bg-secondary);
+            border-color: var(--secondary-green);
+        }
+
+        [data-theme="dark"] .speech-bubble::before {
+            border-color: transparent var(--secondary-green) transparent transparent;
+        }
+
+        [data-theme="dark"] .speech-bubble::after {
+            border-color: transparent var(--bg-secondary) transparent transparent;
+        }
+
+        @media (max-width: 768px) {
+            .ancestor-guide {
+                left: 50%;
+                transform: translateX(-50%);
+                bottom: 120px;
+            }
+
+            .ancestor-guide.hidden {
+                transform: translateX(-50%) translateY(100px);
+            }
+
+            .avatar-container {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .ancestor-avatar {
+                width: 100px;
+                height: 100px;
+                font-size: 3rem;
+            }
+
+            .speech-bubble {
+                max-width: 280px;
+            }
+
+            .speech-bubble::before,
+            .speech-bubble::after {
+                bottom: auto;
+                top: -15px;
+                left: 50%;
+                transform: translateX(-50%) rotate(90deg);
+            }
+        }
     </style>
     <script>
         // Enhanced navigation functionality
@@ -1049,12 +1394,14 @@
             }
         }
         
-        // Theme toggle functionality
         function toggleTheme() {
-            console.log("Hola Mundo");
             const body = document.body;
             const themeToggle = document.querySelector('.theme-toggle');
             const currentTheme = body.getAttribute('data-theme');
+            
+            if (currentTheme === 'vintage') {
+                return;
+            }
             
             if (currentTheme === 'dark') {
                 body.setAttribute('data-theme', 'light');
@@ -1064,6 +1411,27 @@
                 body.setAttribute('data-theme', 'dark');
                 themeToggle.innerHTML = '☀️';
                 localStorage.setItem('theme', 'dark');
+            }
+        }
+
+        function toggleStyle() {
+            const body = document.body;
+            const styleToggle = document.querySelector('.style-toggle');
+            const themeToggle = document.querySelector('.theme-toggle');
+            const currentTheme = body.getAttribute('data-theme');
+            
+            if (currentTheme === 'vintage') {
+                const previousTheme = localStorage.getItem('theme') || 'light';
+                body.setAttribute('data-theme', previousTheme);
+                styleToggle.innerHTML = '📜';
+                styleToggle.title = 'Modo Vintage';
+                themeToggle.innerHTML = previousTheme === 'dark' ? '☀️' : '🌙';
+                localStorage.setItem('style', 'modern');
+            } else {
+                body.setAttribute('data-theme', 'vintage');
+                styleToggle.innerHTML = '🚀';
+                styleToggle.title = 'Modo Moderno';
+                localStorage.setItem('style', 'vintage');
             }
         }
 
@@ -1114,11 +1482,30 @@
             hideLoader();
             
             // Initialize theme
-            const savedTheme = localStorage.getItem('theme');
-            if (savedTheme) {
+           const savedTheme = localStorage.getItem('theme');
+            const savedStyle = localStorage.getItem('style');
+            
+            if (savedStyle === 'vintage') {
+                document.body.setAttribute('data-theme', 'vintage');
+                document.querySelector('.style-toggle').innerHTML = '💻';
+                document.querySelector('.style-toggle').title = 'Modo Moderno';
+            } else if (savedTheme) {
                 document.body.setAttribute('data-theme', savedTheme);
                 document.querySelector('.theme-toggle').innerHTML = savedTheme === 'dark' ? '☀️' : '🌙';
             }
+
+            // Ocultar avatar después de 6 segundos
+                setTimeout(() => {
+                    const ancestorGuide = document.getElementById('ancestorGuide');
+                    if (ancestorGuide) {
+                        ancestorGuide.classList.add('hidden');
+                        localStorage.setItem('ancestorGuideHidden', 'true');
+                        // Remover completamente del DOM después de la animación
+                        setTimeout(() => {
+                            ancestorGuide.remove();
+                        }, 500);
+                    }
+                }, 5000);
             
             // Initialize scroll animations
             initScrollAnimations();
@@ -1192,6 +1579,10 @@
                 timeout = setTimeout(later, wait);
             };
         }
+
+         
+            
+            
         
         // Apply debouncing to scroll handler
         window.addEventListener('scroll', debounce(updateScrollProgress, 10));
@@ -1208,17 +1599,18 @@
 
     <header>
         <div class="header-content">
-            <a href="#inicio" class="logo" onclick="showSection('inicio')">Saberes Ancestrales</a>
+            <a href="inicio.html" class="logo" onclick="showSection('inicio')">Saberes Ancestrales</a>
             <nav>
                 <ul>
-                    <li><a href="inicio.html" class="nav-link active">Inicio</a></li>
+                    <li><a href="inicio.html" class="nav-link">Inicio</a></li>
                     <li><a href="museo.html"  class="nav-link">Plantas</a></li>
                     <li><a href="historiasOrales.html" class="nav-link">Historias</a></li>
-                    <li><a href="experiencias.html" class="nav-link">Experiencias Estudiantiles</a></li>
-                    <li><a href="juegos.html" class="nav-link">Juegos</a></li>
+                    <li><a href="experiencias.html" class="nav-link">Experiencias</a></li>
+                    <li><a href="juegos.html" class="nav-link active">Juegos</a></li>
                     <li><a href="videos.html" class="nav-link">Videos</a></li>
                     <li><a href="cuestionario.html" class="nav-link">Tu conocimiento nos importa</a></li>
                     <li><button class="theme-toggle" onclick="toggleTheme()">🌙</button></li>
+                    <li><button class="style-toggle" onclick="toggleStyle()" title="Modo Vintage">📜</button></li>
                 </ul>
             </nav>
         </div>
@@ -1249,14 +1641,16 @@
                 </div>
 
                 <div class="fade-in-on-scroll" style="background: var(--bg-primary); padding: 2rem; border-radius: var(--border-radius); margin: 3rem 0; box-shadow: var(--shadow-light);">
-                    <h2>Objetivos</h2>
-                    <h3>El Caribe colombiano es hogar de una rica diversidad cultural y biológica. Las comunidades afrodescendientes, indígenas y mestizas han desarrollado a lo largo de siglos un profundo conocimiento sobre las propiedades medicinales de la flora local. Este saber, transmitido de generación en generación a través de la tradición oral, representa un patrimonio invaluable que debemos preservar y valorar.</h3>
-                    <h4 style="color: var(--primary-green); margin-top: 2rem;">Objetivo General del Proyecto:</h4>
+                    <!--<h2>Objetivos</h2>
+                    <h3>El Caribe colombiano es hogar de una rica diversidad cultural y biológica. Las comunidades afrodescendientes, indígenas y mestizas han desarrollado
+                         a lo largo de siglos un profundo conocimiento sobre las propiedades medicinales de la flora local. Este saber, transmitido de generación en 
+                         generación a través de la tradición oral, representa un patrimonio invaluable que debemos preservar y valorar.</h3>-->
+                    <!--<h4 style="color: var(--primary-green); margin-top: 2rem;">Objetivo General del Proyecto:</h4>
                     <ul style="margin: 1rem 0; padding-left: 2rem; color: var(--text-secondary);">
                         <li> Diseñar una estrategia pedagógica que promueva la valoración de los saberes ancestrales sobre las plantas medicinales, orientada al desarrollo 
                             de productos naturales con estudiantes de 11° de la Institución Educativa Distrital Juan José Rondón.</li>
-                    </ul>
-                    <h4 style="color: var(--primary-green); margin-top: 2rem;">Objetivos Especificos del Proyecto:</h4>
+                    </ul>-->
+                    <h4 style="color: var(--primary-green); margin-top: 2rem;">Objetivos del Proyecto:</h4>
                     <ul style="margin: 1rem 0; padding-left: 2rem; color: var(--text-secondary);">
                         <li> Identificar los saberes ancestrales sobre plantas medicinales de la región caribe con los estudiantes de la IED Juan José Rondón.</li>
                         <li>Establecer estrategias pedagógicas para el desarrollo de productos naturales con fines medicinales.</li>
@@ -1283,5 +1677,15 @@
     </a>
         </div>
     </footer>
+
+    <div class="ancestor-guide" id="ancestorGuide">
+        <div class="avatar-container">
+            <div class="ancestor-avatar"></div>
+            <div class="speech-bubble">
+                <h4>¡Bienvenido a nuestros juegos!</h4>
+                <p>Vive y diviertete con las aventuras del saber ancestral.🌿</p>
+            </div>
+        </div>
+    </div>
 </body>
 </html>
