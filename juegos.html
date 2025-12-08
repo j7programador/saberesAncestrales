@@ -77,6 +77,7 @@
             background: var(--bg-gradient);
             min-height: 100vh;
             transition: background var(--transition-smooth), color var(--transition-smooth);
+            padding-top: 140px;
         }
 
         html, body {
@@ -148,6 +149,9 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
+
+            flex-wrap: wrap;        /* permite que el contenido baje si es necesario */
+            gap: 1rem;              /* espacio entre líneas */
         }
 
         /* Logo refinado */
@@ -1621,11 +1625,10 @@
         <section id="inicio" class="section active">
             
             <div class="container">
-                <div class="fade-in-on-scroll">
-                    <h2>Juegos de saberes ancestrales</h2>
+                <div class="hero fade-in-on-scroll">
+                    <h1>Juegos de saberes ancestrales</h1>
                     <p>Juegos interactivos para que aumentes tus conocimientos sobre las plantas medicinales y sus usos</p>
                 </div>
-                
                 <div class="cards-grid">
                     <div class="card">
                         <h3>🎮 Travesía del Sabedor</h3>
